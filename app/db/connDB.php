@@ -14,7 +14,6 @@ class Connection extends PDO {
      * @param array $parameters *
      * @return bool Returns `true` on success, `false` otherwise
      */
-
     public function executeQuery(string $query, array $parameters = []) : bool{
         $this->stmt = parent::prepare($query);
         foreach ($parameters as $name => $value) {
