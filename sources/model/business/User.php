@@ -1,42 +1,28 @@
 <?php
 
-class User
+class User extends Visitor
 {
-    private $username;
-    private $password;
+    private $name;
     private $mail;
-    private $listTask;
 
     /**
-     * @return mixed
+     * @param $id
+     * @param $name
+     * @param $mail
      */
-    public function getUsername()
+    public function __construct($id, $name, $mail)
     {
-        return $this->username;
-    }
-
-    /**
-     * @param mixed $username
-     */
-    public function setUsername($username): void
-    {
-        $this->username = $username;
+        $this->id = $id;
+        $this->name = $name;
+        $this->mail = $mail;
     }
 
     /**
      * @return mixed
      */
-    public function getPassword()
+    public function getName()
     {
-        return $this->password;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password): void
-    {
-        $this->password = $password;
+        return $this->name;
     }
 
     /**
@@ -46,27 +32,5 @@ class User
     {
         return $this->mail;
     }
-
-    /**
-     * @param mixed $mail
-     */
-    public function setMail($mail): void
-    {
-        $this->mail = $mail;
-    }
-
-    /**
-     * @param $username
-     * @param $password
-     * @param $mail
-     */
-    public function __construct($username, $password, $mail)
-    {
-        $this->username = $username;
-        $this->password = $password;
-        $this->mail = $mail;
-        $this->listTask = [];
-    }
-
 
 }
