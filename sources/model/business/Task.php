@@ -2,40 +2,25 @@
 
 class Task
 {
-    private $description;
-    private $dateOfCreation;
+
+    private $id;
+    private $content;
     private $isDone;
 
     /**
      * @return mixed
      */
-    public function getDescription()
+    public function getId()
     {
-        return $this->description;
-    }
-
-    /**
-     * @param mixed $description
-     */
-    public function setDescription($description): void
-    {
-        $this->description = $description;
+        return $this->id;
     }
 
     /**
      * @return mixed
      */
-    public function getDateOfCreation()
+    public function getContent()
     {
-        return $this->dateOfCreation;
-    }
-
-    /**
-     * @param mixed $dateOfCreation
-     */
-    public function setDateOfCreation($dateOfCreation): void
-    {
-        $this->dateOfCreation = $dateOfCreation;
+        return $this->content;
     }
 
     /**
@@ -47,19 +32,16 @@ class Task
     }
 
     /**
-     * @param mixed $isDone
+     * @param $id
+     * @param $content
+     * @param $isDone
      */
-    public function setIsDone($isDone): void
+    public function __construct($id, $content, $isDone)
     {
+        $this->id = $id;
+        $this->content = $content;
         $this->isDone = $isDone;
     }
 
-    /**
-     * @param $description
-     */
-    public function __construct($description)
-    {
-        $this->description = $description;
-    }
 
 }
