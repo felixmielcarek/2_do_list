@@ -16,8 +16,11 @@ $mdp = "";
 
 //Vues
 
-$vues['erreur'] = 'vues/erreur.php';
-$vues['vuephp1'] = 'vues/vuephp1.php';
+$vues['erreur'] = 'views/erreur.php';
+$vues['home'] = 'views/home.php';
+$vues['settings'] = 'views/settings.php';
+$vues['connection'] = 'views/connection.php';
+$vues['registration'] = 'views/registration.php';
 
 
 ?>
