@@ -1,6 +1,6 @@
 <?php
 
-class ListTask
+class List
 {
 
     private $title;
