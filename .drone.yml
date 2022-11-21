@@ -13,7 +13,7 @@ steps:
     dockerfile: ./Dockerfile
     context: ./sources/
     registry: hub.codefirst.iut.uca.fr
-    repo: hub.codefirst.iut.uca.fr/felix.mielcarek/2_do_list
+    repo: hub.codefirst.iut.uca.fr/lucas.delanier/2_do_list
     username:
       from_secret: secret-registry-username
     password:
