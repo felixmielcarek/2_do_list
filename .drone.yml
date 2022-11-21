@@ -11,7 +11,7 @@ steps:
   image: plugins/docker
   settings:
     dockerfile: ./Dockerfile
-    context: ./sources/
+    context: ./
     registry: hub.codefirst.iut.uca.fr
     repo: hub.codefirst.iut.uca.fr/felix.mielcarek/2_do_list
     username:
