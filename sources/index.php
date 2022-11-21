@@ -55,7 +55,7 @@ $page = 'home';
                         <h8>12/06/2022</h8>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">Petite description de la list de tâche.</p>
+                        <p class="card-text">Petite description de la liste de tâche.</p>
                         <ul class="list-group">
                             <li class="list-group-item list-group-item-action">
                                 <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
