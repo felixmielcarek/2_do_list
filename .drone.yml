@@ -11,14 +11,14 @@ steps:
   image: plugins/docker
   settings:
     dockerfile: ./Dockerfile
-    context: ./
+    context: ./sources/
     registry: hub.codefirst.iut.uca.fr
     repo: hub.codefirst.iut.uca.fr/felix.mielcarek/2_do_list
     username:
       from_secret: secret-registry-username
     password:
       from_secret: secret-registry-password
-      
+
 - name: deploy-container
   image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
   environment:
