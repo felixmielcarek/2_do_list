@@ -9,8 +9,9 @@ class ListGateway
         $this->con = $con;
     }
 
-    public function GetPublic()
+    public function GetAll(): array
     {
-
+        $list = [];
+        return $list;
     }
 }

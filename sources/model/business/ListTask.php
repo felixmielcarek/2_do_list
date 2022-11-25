@@ -70,14 +70,6 @@ class ListTask
     /**
      * @return mixed
      */
-    public function getList()
-    {
-        return $this->list;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getIdAuthor()
     {
         return $this->idAuthor;

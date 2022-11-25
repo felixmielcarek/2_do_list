@@ -15,7 +15,7 @@ class TaskGateway
         $this->con->executeQuery($query);
     }
 
-    public function getByIdList(int $idList)
+    public function GetByListId(int $idList)
     {
         $query = "SELECT * FROM TASKS WHERE idList = :id";
         $this->con->executeQuery($query, array(':id' => array($idList, PDO::PARAM_INT)));
@@ -24,6 +24,6 @@ class TaskGateway
     public function addTask(string $content, int $idList)
     {
         $query = "INSERT INTO TASKS(content,idList) VALUES (:content,:idList)";
-        $this->con->executeQuery($query, array(':content' => array($content,PDO::PARAM_STR),':idList' => array($idList,PDO::PARAM_INT)));
+        $this->con->executeQuery($query, array(':content' => array($content, PDO::PARAM_STR), ':idList' => array($idList, PDO::PARAM_INT)));
     }
 }
