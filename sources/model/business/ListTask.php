@@ -6,8 +6,34 @@ class ListTask
     private $title;
     private $description;
     private $dateOfCreation;
-    private $list;
+    private $tasks;
     private $idAuthor;
+
+    /**
+     * @param $id
+     * @param $idAuthor
+     * @param $description
+     * @param $title
+     * @param $dateOfCreation
+     * @param $tasks
+     */
+    public function __construct($id, $idAuthor, $description, $title, $dateOfCreation, $tasks)
+    {
+        $this->id = $id;
+        $this->idAuthor = $idAuthor;
+        $this->description = $description;
+        $this->title = $title;
+        $this->dateOfCreation = $dateOfCreation;
+        $this->tasks = $tasks;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
 
     /**
      * @return mixed
@@ -55,24 +81,6 @@ class ListTask
     public function getIdAuthor()
     {
         return $this->idAuthor;
-    }
-
-    /**
-     * @param $id
-     * @param $idAuthor
-     * @param $description
-     * @param $title
-     * @param $dateOfCreation
-     * @param $list
-     */
-    public function __construct($id, $idAuthor, $description, $title, $dateOfCreation, $list)
-    {
-        $this->id = $id;
-        $this->idAuthor = $idAuthor;
-        $this->description = $description;
-        $this->title = $title;
-        $this->dateOfCreation = $dateOfCreation;
-        $this->list = $list;
     }
 
 

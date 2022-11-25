@@ -3,16 +3,11 @@
 //gen
 $rep = __DIR__ . '/../';
 
-// liste des modules à inclure
-
-//$dConfig['includes']= array('controleur/Validation.php');
-
-
 //BD
 
-$base = "sasa";
-$login = "";
-$mdp = "";
+$user = 'root';
+$pass = '0000';
+$dsn = 'mysql:host=localhost;dbname=2dolist';
 
 //Vues
 

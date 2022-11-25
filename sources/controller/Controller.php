@@ -42,12 +42,8 @@ class Controller
 
     function GoHome()
     {
-        global $rep, $vues; // nécessaire pour utiliser variables globales
-        /*$dVue = array(
-            'nom' => "",
-            'age' => 0,
-        );*/
-        require($rep . $vues['home.php']);
+        
+        require($rep . $vues['home']);
     }
 
     function AddPbLists()
