@@ -4,7 +4,7 @@ class Autoload
 {
     private static $_instance = null;
 
-    public static function charger()
+    public static function load()
     {
         if (null !== self::$_instance) {
             throw new RuntimeException(sprintf('%s is already started', __CLASS__));
@@ -13,7 +13,8 @@ class Autoload
         self::$_instance = new self();
 
 
-        if (!spl_autoload_register(array(self::$_instance, '_autoload'), false)) {
+        //if (!spl_autoload_register(array(self::$_instance, '_autoload'), false)) {
+        if (!spl_autoload_register(array(self::$_instance, '_autoload'))) {	//to use with php 8
             throw RuntimeException(sprintf('%s : Could not start the autoload', __CLASS__));
         }
     }
@@ -32,12 +33,11 @@ class Autoload
 
     private static function _autoload($class)
     {
-        global $rep;
+        global $dir;
         $filename = $class . '.php';
-        $dir = array('modeles/', './', 'config/', 'controleur/');
-        foreach ($dir as $d) {
-            $file = $rep . $d . $filename;
-            //echo $file;
+        $tDir = array('./' , 'config/' , 'controller/' , 'model/' , 'views/');
+        foreach ($tDir as $d) {
+            $file = $dir . $d . $filename;
             if (file_exists($file)) {
                 include $file;
             }

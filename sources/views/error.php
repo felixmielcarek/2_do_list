@@ -2,8 +2,8 @@
 <body>
 
 <?php
-print 'test home';
+print 'test error';
 ?>
 
-</html>
 </body>
+</html>

@@ -5,34 +5,33 @@ class Controller
 
     function __construct()
     {
-        global $rep, $vues;
-        // on démarre ou reprend la session si necessaire (préférez utiliser un modèle pour gérer vos session ou cookies)
+        global $dir, $views;
+        // on démarre ou dirrend la session si necessaire (préférez utiliser un modèle pour gérer vos session ou cookies)
         session_start();
 
-        //on initialise un tableau d'erreur
-        $dVueEreur = array();
+        //on initialise un tableau d'error
+        $tErrors = array();
 
         try {
-            $action = $_REQUEST['action'];
-            switch ($action) {
+	    $action=$_REQUEST['action'];
+	    //filtrer action
+	    
+	    switch ($action) {
                 case NULL:
                     $this->GoHome();
                     break;
-                case "addPbLists":
-                    $this->AddPbLists();
-                    break;
                 default:
-                    $dVueEreur[] = "Erreur d'appel php";
-                    require($rep . $vues['vuephp1']);
+                    $tErrors[] = "Erreur d'appel php";
+                    require($dir . $views['error']);
                     break;
             }
         } catch (PDOException $e) {
-            //si erreur BD, pas le cas ici
-            $dVueEreur[] = "Erreur inattendue!!! ";
-            require($rep . $vues['erreur']);
+            //si error BD, pas le cas ici
+            $tErrors[] = "Erreur inattendue!!! ";
+            require($dir . $views['error']);
         } catch (Exception $e2) {
-            $dVueEreur[] = "Erreur inattendue!!! ";
-            require($rep . $vues['erreur']);
+            $tErrors[] = "Erreur inattendue!!! ";
+            require($dir . $views['error']);
         }
         //fin
         exit(0);
@@ -41,16 +40,9 @@ class Controller
 
     function GoHome()
     {
-        global $rep, $vues;
+        global $dir, $views;
         $model = new Model();
-        $lists[] = $model->GetLists();
-        require($rep . $vues['home']);
-    }
-
-    function AddPbLists()
-    {
-        global $rep, $vues; // nécessaire pour utiliser variables globales
-        require($rep . $vues['add.php']);
+        require($dir . $views['home']);
     }
 }//fin class
 
