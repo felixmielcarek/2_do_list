@@ -2,7 +2,7 @@
 <body>
 
 <?php
-print 'test error';
+print 'error';
 ?>
 
 </body>

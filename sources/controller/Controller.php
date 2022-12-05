@@ -11,12 +11,15 @@ class Controller
 
         //on initialise un tableau d'error
         $tErrors = array();
-
         try {
-	    $action=$_REQUEST['action'];
-	    //filtrer action
-	    
-	    switch ($action) {
+            if (isset($_REQUEST['action'])) {
+                $action = $_REQUEST['action'];
+                //TODO : filtrer action
+            } else {
+                $action = NULL;
+            }
+
+            switch ($action) {
                 case NULL:
                     $this->GoHome();
                     break;
@@ -42,6 +45,7 @@ class Controller
     {
         global $dir, $views;
         $model = new Model();
+        $pubLists = $model->GetLists();
         require($dir . $views['home']);
     }
 }//fin class

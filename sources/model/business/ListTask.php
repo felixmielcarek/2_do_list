@@ -3,11 +3,11 @@
 class ListTask
 {
     private $id;
+    private $idAuthor;
     private $title;
     private $description;
     private $dateOfCreation;
     private $tasks;
-    private $idAuthor;
 
     /**
      * @param $id
@@ -17,7 +17,7 @@ class ListTask
      * @param $dateOfCreation
      * @param $tasks
      */
-    public function __construct($id, $idAuthor, $description, $title, $dateOfCreation, $tasks)
+    public function __construct($id, $idAuthor, $title, $description, $dateOfCreation, $tasks)
     {
         $this->id = $id;
         $this->idAuthor = $idAuthor;

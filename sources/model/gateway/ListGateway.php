@@ -11,7 +11,8 @@ class ListGateway
 
     public function GetAll(): array
     {
-        $list = [];
-        return $list;
+        $query = 'SELECT * FROM lists';
+        $this->con->executeQuery($query);
+        return $this->con->getResults();
     }
 }
