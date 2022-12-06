@@ -1,4 +1,6 @@
 # To execute as root on the host server
+# Remember to start web service AND sql service
+# To connect to mysql : mysql -u root -p
 
 CREATE DATABASE IF NOT EXISTS 2dolist;
 CREATE USER IF NOT EXISTS 2dolistAccess IDENTIFIED BY 'mdp2dolistDBAccess';
@@ -15,7 +17,7 @@ CREATE OR REPLACE TABLE lists
     PRIMARY KEY (id)
 );
 
-GRANT SELECT ON lists to 2dolistAccess;
+GRANT ALL ON 2dolist to 2dolistAccess;
 
 insert into lists(idAuthor, title, description, dateOfCreation)
 values ('001', 'First', 'My first list', CURRENT_DATE),

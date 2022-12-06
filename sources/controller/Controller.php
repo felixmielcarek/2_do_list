@@ -30,10 +30,14 @@ class Controller
             }
         } catch (PDOException $e) {
             //si error BD, pas le cas ici
+            echo $e;
+	    echo phpinfo();
             $tErrors[] = "Erreur inattendue!!! ";
             require($dir . $views['error']);
         } catch (Exception $e2) {
             $tErrors[] = "Erreur inattendue!!! ";
+            echo 'test2';
+
             require($dir . $views['error']);
         }
         //fin
