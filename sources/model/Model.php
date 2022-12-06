@@ -15,4 +15,14 @@ class Model
         }
         return $listsModel;
     }
+
+    public function Addlist(): void
+    {
+        global $dsn, $user, $pass;
+
+        $con = new Connection($dsn, $user, $pass);
+        $gwL = new ListGateway($con);
+        $listsBD = $gwL->addList();
+        return;
+    }
 }

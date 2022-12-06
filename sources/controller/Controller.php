@@ -23,6 +23,9 @@ class Controller
                 case NULL:
                     $this->GoHome();
                     break;
+                case "addAList":
+                    $this->addList();
+                    break;
                 default:
                     $tErrors[] = "Erreur d'appel php";
                     require($dir . $views['error']);
@@ -50,6 +53,13 @@ class Controller
         global $dir, $views;
         $model = new Model();
         $pubLists = $model->GetLists();
+        require($dir . $views['home']);
+    }
+
+    function addList(){
+        global $dir, $views;
+        $model = new Model();
+        $pubLists = $model->Addlist();
         require($dir . $views['home']);
     }
 }//fin class

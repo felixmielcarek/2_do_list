@@ -42,14 +42,14 @@
                 <form>
                     <div class="mb-3">
                         <label class="form-label">Titre de la liste</label>
-                        <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="title" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Description</label>
-                        <input class="form-control" id="exampleInputPassword1">
+                        <input class="form-control" id="exampleInputPassword1" name="description" required>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                         <button type="submit" class="btn btn-primary">Ajouter</button>
                     </div>
                 </form>
@@ -92,18 +92,15 @@
                         <div class="card-body">
                             <p class="card-text">$list->getDescription().</p>
                             <ul class="list-group">
+                                <?php
+                                foreach ((array)$list->getTasks() as $task){?>
                                 <li class="list-group-item list-group-item-action">
                                     <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
                                     <label class="form-check-label" for="firstCheckbox">First checkbox</label>
                                 </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
-                                    <label class="form-check-label" for="secondCheckbox">Second checkbox</label>
-                                </li>
-                                <li class="list-group-item list-group-item-action">
-                                    <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
-                                    <label class="form-check-label" for="thirdCheckbox">Third checkbox</label>
-                                </li>
+                                    <?php
+                                }
+                                ?>
                             </ul>
                             <div class="list-bouton">
                                 <button type="button" class="btn btn-outline-primary add rounded-pill">Ajouter tâches
