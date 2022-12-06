@@ -8,10 +8,10 @@ class Model
 
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
-        $listsBD[] = $gwL->GetAll();
+        $listsBD = $gwL->GetAll();
 
         foreach ($listsBD as $lId) {
-            $listsModel[] = new ListTask($lId[0], $lId[1], $lId[2], $lId[3], $lId[4], null);
+            $listsModel[] = new ListTask($lId['id'], $lId['idAuthor'], $lId['title'], $lId['description'], $lId['dateOfCreation'], null);
         }
         return $listsModel;
     }
