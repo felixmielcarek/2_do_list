@@ -16,6 +16,20 @@ class Model
         return $listsModel;
     }
 
+    public function GetTasks(): array
+    {
+        global $dsn, $user, $pass;
+
+        $con = new Connection($dsn, $user, $pass);
+        $gwT = new TaskGateway($con);
+        $tasksBD = $gwT->GetAll();
+
+        foreach ($tasksBD as $lId) {
+            $tasksModel[] = new Task($lId['id'],$lId['content'],$lId['idList']);
+        }
+        return $tasksModel;
+    }
+
     public function Addlist($author, $title, $description): void
     {
         global $dsn, $user, $pass;
@@ -33,6 +47,16 @@ class Model
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
         $listsBD = $gwL->DeleteList($id);
+        return;
+    }
+
+    public function AddTask($content, $idList): void
+    {
+        global $dsn, $user, $pass;
+
+        $con = new Connection($dsn, $user, $pass);
+        $gwT = new TaskGateway($con);
+        $listsBD = $gwT->AddTask($content, $idList);
         return;
     }
 }

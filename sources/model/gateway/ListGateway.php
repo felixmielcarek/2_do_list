@@ -16,7 +16,7 @@ class ListGateway
         return $this->con->getResults();
     }
 
-    public function AddList($author, $title, $description): array
+    public function AddList($author, $title, $description)
     {
         $query = 'INSERT INTO lists (idAuthor,title,description, dateOfCreation) VALUES (:author, :title, :description, :date)';
         $this->con->executeQuery($query, array(
@@ -25,19 +25,15 @@ class ListGateway
             ':description'=>array($description, PDO::PARAM_STR),
             ':date'=>array(date('Y-m-d'), PDO::PARAM_STR)));
 
-        return $this->con->getResults();
-        return [];
 
     }
 
-    public function DeleteList($id): array
+    public function DeleteList($id)
     {
         $query = 'DELETE FROM lists WHERE id =:id';
         $this->con->executeQuery($query, array(
             ':id'=>array($id, PDO::PARAM_STR)));
 
-        return $this->con->getResults();
-        return [];
 
     }
 }

@@ -29,6 +29,9 @@ class Controller
                 case "deleteList":
                     $this->deleteList();
                     break;
+                case "addTask":
+                    $this->addTask();
+                    break;
                 default:
                     $tErrors[] = "Erreur d'appel php";
                     require($dir . $views['error']);
@@ -37,7 +40,7 @@ class Controller
         } catch (PDOException $e) {
             //si error BD, pas le cas ici
             echo $e;
-	    echo phpinfo();
+            echo phpinfo();
             $tErrors[] = "Erreur inattendue!!! ";
             require($dir . $views['error']);
         } catch (Exception $e2) {
@@ -56,29 +59,41 @@ class Controller
         global $dir, $views;
         $model = new Model();
         $pubLists = $model->GetLists();
+        $pubTasks = $model->GetTasks();
         require($dir . $views['home']);
     }
 
-    function addList(){
+    function addList()
+    {
         global $dir, $views;
         $model = new Model();
         $author = 1;
         $title = $_POST['title'];
         $description = $_POST['description'];
         $pubLists = $model->Addlist($author, $title, $description);
-        $pubLists = $model->GetLists();
-        require($dir . $views['home']);
+        $this->GoHome();
     }
 
-    function deleteList(){
+    function deleteList()
+    {
         global $dir, $views;
         $model = new Model();
         $author = 1;
         $id = $_GET['id'];
         $pubLists = $model->DeleteList($id);
-        $pubLists = $model->GetLists();
-        require($dir . $views['home']);
+        $this->GoHome();
     }
+
+    function addTask()
+    {
+        global $dir, $views;
+        $model = new Model();
+        $idList = $_POST['idList'];
+        $content = $_POST['content'];
+        $pubLists = $model->AddTask($content, $idList);
+        $this->GoHome();
+    }
+
 }//fin class
 
 ?>

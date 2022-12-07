@@ -1,21 +1,21 @@
 html,
 body {
-  height: 100%;
-  overflow: hidden;
+    height: 100%;
+    overflow: hidden;
 }
 
 .white {
-  background-color: white;
+    background-color: white;
 }
 
 .grey {
     background-image: url("../assets/images/private_background.png");
     background-repeat: no-repeat;
     background-size: cover;
-  background-color: #F1F1F0;
+    background-color: #F1F1F0;
 }
 
-.title-bar{
+.title-bar {
     position: fixed;
     display: flex;
     align-items: flex-end;
@@ -23,57 +23,57 @@ body {
     padding-top: 40px;
 }
 
-h2{
+h2 {
     padding-left: 20px;
 }
 
-.form-outline{
+
+.form-outline {
     width: 90%;
 }
 
-.public_list{
+.public_list {
     overflow-y: scroll;
-    height:600px;
+    height: 600px;
     width: 80%;
     margin-left: 10%;
 
 }
 
-.list-group-item{
+.list-group-item {
     display: inline;
 }
 
-.list-bouton{
-    width: 100%;
+.list-bouton {
+    height: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-.card{
+.card {
     margin: 10px;
     border-radius: 2em;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
 }
 
 
-.card-header{
+.card-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
 
-.list-group{
+.list-group {
     padding-bottom: 20px;
 }
 
-.add{
+.add {
     margin-right: 20px;
 }
 
 
-
-.login-section{
+.login-section {
     height: 90%;
     width: 100%;
     display: flex;
@@ -81,27 +81,30 @@ h2{
     justify-content: center;
     align-items: center;
 }
-.signin{
+
+.signin {
     background-color: white !important;
 }
 
-.signup:hover{
+.signup:hover {
     background-color: white !important;
     color: #0D6EFD !important;
 }
-.signin:hover{
+
+.signin:hover {
     background-color: #0D6EFD !important;
 }
 
-.signin, .signup{
+.signin, .signup {
     width: 230px;
     height: 50px;
 }
-.signup{
+
+.signup {
     margin-top: 15px;
 }
 
-.search{
+.search {
     margin-top: 120px;
     margin-left: 10px;
     padding-right: 10%;
@@ -109,7 +112,7 @@ h2{
     margin-bottom: 0px;
 }
 
-.add_list{
+.add_list {
     height: 50px;
     width: 80%;
     margin-top: 50px;

@@ -23,4 +23,12 @@ insert into lists(idAuthor, title, description, dateOfCreation)
 values ('001', 'First', 'My first list', CURRENT_DATE),
        ('002', 'Second', 'My second list', CURRENT_DATE);
 
+CREATE OR REPLACE TABLE tasks
+(
+    id             MEDIUMINT   NOT NULL AUTO_INCREMENT,
+    title          VARCHAR(50) NOT NULL,
+    idList       MEDIUMINT   NOT NULL,
+    FOREIGN KEY (idList) REFERENCES lists(id),
+    PRIMARY KEY (id)
+);
 
