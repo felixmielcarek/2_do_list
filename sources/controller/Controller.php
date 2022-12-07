@@ -23,8 +23,11 @@ class Controller
                 case NULL:
                     $this->GoHome();
                     break;
-                case "addAList":
+                case "addList":
                     $this->addList();
+                    break;
+                case "deleteList":
+                    $this->deleteList();
                     break;
                 default:
                     $tErrors[] = "Erreur d'appel php";
@@ -59,7 +62,21 @@ class Controller
     function addList(){
         global $dir, $views;
         $model = new Model();
-        $pubLists = $model->Addlist();
+        $author = 1;
+        $title = $_POST['title'];
+        $description = $_POST['description'];
+        $pubLists = $model->Addlist($author, $title, $description);
+        $pubLists = $model->GetLists();
+        require($dir . $views['home']);
+    }
+
+    function deleteList(){
+        global $dir, $views;
+        $model = new Model();
+        $author = 1;
+        $id = $_GET['id'];
+        $pubLists = $model->DeleteList($id);
+        $pubLists = $model->GetLists();
         require($dir . $views['home']);
     }
 }//fin class

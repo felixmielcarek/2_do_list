@@ -16,13 +16,23 @@ class Model
         return $listsModel;
     }
 
-    public function Addlist(): void
+    public function Addlist($author, $title, $description): void
     {
         global $dsn, $user, $pass;
 
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
-        $listsBD = $gwL->addList();
+        $listsBD = $gwL->AddList($author, $title, $description);
+        return;
+    }
+
+    public function DeleteList($id): void
+    {
+        global $dsn, $user, $pass;
+
+        $con = new Connection($dsn, $user, $pass);
+        $gwL = new ListGateway($con);
+        $listsBD = $gwL->DeleteList($id);
         return;
     }
 }
