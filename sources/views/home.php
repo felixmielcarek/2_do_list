@@ -133,7 +133,11 @@
                                 <div class="container-fluid p-0">
                                     <div class="row">
                                         <div class="col-12 col-sm-6 col-md-8">
-                                            <h4> <?= $list->getTitle() ?> </h4>
+                                            <h4 style="background: <?= $this->rand_color() ?>;
+                                                    background: radial-gradient(circle farthest-corner at center center, <?= $this->rand_color() ?> 0%, <?= $this->rand_color() ?> 100%);
+                                                    -webkit-background-clip: text;
+                                                    -webkit-text-fill-color: transparent;
+                                                    "> <?= $list->getTitle() ?> </h4>
                                         </div>
                                         <div class="col-6 col-md-4">
                                             <div class="list-bouton">
