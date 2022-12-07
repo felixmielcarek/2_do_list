@@ -29,6 +29,9 @@ class Controller
                 case "deleteList":
                     $this->deleteList();
                     break;
+                case "deleteTask":
+                    $this->deleteTask();
+                    break;
                 case "addTask":
                     $this->addTask();
                     break;
@@ -81,6 +84,16 @@ class Controller
         $author = 1;
         $id = $_GET['id'];
         $pubLists = $model->DeleteList($id);
+        $this->GoHome();
+    }
+
+    function deleteTask()
+    {
+        global $dir, $views;
+        $model = new Model();
+        $author = 1;
+        $id = $_GET['id'];
+        $pubLists = $model->DeleteTask($id);
         $this->GoHome();
     }
 

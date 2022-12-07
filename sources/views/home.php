@@ -162,11 +162,18 @@
                                         foreach ($pubTasks as $task) {
                                             if ($task->getIdList() == $list->getId()) {
                                                 ?>
-                                                <li class="list-group-item list-group-item-action">
-                                                    <input class="form-check-input me-1" type="checkbox" value=""
-                                                           id="firstCheckbox">
-                                                    <label class="form-check-label"
-                                                           for="firstCheckbox"><?= $task->getContent() ?></label>
+                                                <li class="list-group-item d-flex justify-content-between">
+                                                    <div class="container-fluid p-0">
+                                                        <input class="form-check-input me-1" type="checkbox"
+                                                               id="firstCheckbox">
+                                                        <label class="form-check-label"
+                                                               for="firstCheckbox"><?= $task->getContent() ?></label>
+                                                    </div>
+                                                    <a href="index.php?action=deleteTask&id=<?= $task->getId() ?>">
+                                                        <div class="btn rounded-pill btn-sm del">
+                                                            <i class="fa fa-minus" style="color: grey"></i>
+                                                        </div>
+                                                    </a>
                                                 </li>
                                                 <?php
                                             } ?>

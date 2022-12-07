@@ -25,7 +25,7 @@ class Model
         $tasksBD = $gwT->GetAll();
 
         foreach ($tasksBD as $lId) {
-            $tasksModel[] = new Task($lId['id'],$lId['content'],$lId['idList']);
+            $tasksModel[] = new Task($lId['id'], $lId['content'], $lId['idList']);
         }
         return $tasksModel;
     }
@@ -57,6 +57,16 @@ class Model
         $con = new Connection($dsn, $user, $pass);
         $gwT = new TaskGateway($con);
         $listsBD = $gwT->AddTask($content, $idList);
+        return;
+    }
+
+    public function DeleteTask($id): void
+    {
+        global $dsn, $user, $pass;
+
+        $con = new Connection($dsn, $user, $pass);
+        $gwT = new TaskGateway($con);
+        $listsBD = $gwT->DeleteTask($id);
         return;
     }
 }
