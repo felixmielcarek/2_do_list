@@ -83,7 +83,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4> <?= $list->getTitle() ?> </h4>
-                                <h8>12/06/2022</h8>
+                                <h8><?= $list->getDateOfCreation() ?></h8>
                             </div>
                             <div class="card-body">
                                 <p class="card-text"><?= $list->getDescription() ?>.</p>
