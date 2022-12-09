@@ -53,6 +53,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                         <button type="submit" class="btn btn-primary">Ajouter</button>
                     </div>
+
                 </form>
 
             </div>
@@ -188,7 +189,13 @@
                                 </ul>
 
                             </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                     aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0"
+                                     aria-valuemax="100" style="width: 100%"></div>
+                            </div>
                         </div>
+
                         <div class="container">
                             <div class="row justify-content-center">
                                 <h8 class="text-center"><?= $list->getDateOfCreation() ?></h8>
@@ -200,7 +207,9 @@
                 ?>
 
             </div>
-            <button type="button" class="btn btn-outline-primary add_list rounded-pill" data-bs-toggle="modal"
+            <button type="button"
+                    class="btn btn-outline-primary add_list rounded-pill shadow-sm p-3 mb-5 bg-body rounded"
+                    data-bs-toggle="modal"
                     data-bs-target="#exampleModal">
                 Ajouter une nouvelle liste
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
