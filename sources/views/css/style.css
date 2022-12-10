@@ -119,4 +119,47 @@ h2 {
     margin-left: 10%;
 }
 
+.login-form {
+    width: 340px;
+    font-size: 15px;
+}
+
+.login-form form {
+    background: #f7f7f7;
+    box-shadow: 1px 0px 41px -3px rgba(0, 0, 0, 0.29);
+    -webkit-box-shadow: 1px 0px 41px -3px rgba(0, 0, 0, 0.29);
+    -moz-box-shadow: 1px 0px 41px -3px rgba(0, 0, 0, 0.29);
+    padding: 30px;
+}
+
+.login-form h2 {
+    margin: 0 0 15px;
+}
+
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.valider {
+    width: 100%;
+    margin-bottom: 10px !important;
+    border-radius: 15px !important;
+}
+
+
+.blue, form-control:focus {
+    color: #0d6efd !important;
+}
+
+.cancel {
+    color: gray !important;
+    text-align: center;
+}
 

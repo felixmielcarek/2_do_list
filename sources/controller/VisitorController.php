@@ -1,16 +1,11 @@
 <?php
 
-class Controller
+class VisitorController extends CanDisplay
 {
-
     function __construct()
     {
         global $dir, $views;
-        // on démarre ou dirrend la session si necessaire (préférez utiliser un modèle pour gérer vos session ou cookies)
-        session_start();
 
-        //on initialise un tableau d'error
-        $tErrors = array();
         try {
             if (isset($_REQUEST['action'])) {
                 $action = $_REQUEST['action'];
@@ -21,7 +16,7 @@ class Controller
 
             switch ($action) {
                 case NULL:
-                    $this->GoHome();
+                    $this->notConnected();
                     break;
                 case "addList":
                     $this->addList();
@@ -34,6 +29,9 @@ class Controller
                     break;
                 case "addTask":
                     $this->addTask();
+                    break;
+                case "connection":
+                    $this->connection();
                     break;
                 default:
                     $tErrors[] = "Erreur d'appel php";
@@ -52,67 +50,66 @@ class Controller
 
             require($dir . $views['error']);
         }
-        //fin
-        exit(0);
-    }//fin constructeur
-
-
-    function GoHome()
-    {
-        global $dir, $views;
-        $model = new Model();
-        $pubLists = $model->GetLists();
-        $pubTasks = $model->GetTasks();
-        require($dir . $views['home']);
     }
 
-    function addList()
+    private function notConnected()
     {
-        global $dir, $views;
-        $model = new Model();
+        $this->displayHome('notConnected');
+    }
+
+    private function addList()
+    {
+        $model = new VisitorModel();
+
         $author = 1;
         $title = $_POST['title'];
         $description = $_POST['description'];
-        $pubLists = $model->Addlist($author, $title, $description);
-        $this->GoHome();
+
+        $model->Addlist($author, $title, $description);
+        $this->displayHome('notConnected');
     }
 
-    function deleteList()
+    private function deleteList()
     {
-        global $dir, $views;
-        $model = new Model();
-        $author = 1;
+        $model = new VisitorModel();
+
         $id = $_GET['id'];
-        $pubLists = $model->DeleteList($id);
-        $this->GoHome();
+
+        $model->DeleteList($id);
+        $this->displayHome('notConnected');
     }
 
-    function deleteTask()
+    private function deleteTask()
     {
-        global $dir, $views;
-        $model = new Model();
-        $author = 1;
+        $model = new VisitorModel();
+
         $id = $_GET['id'];
-        $pubLists = $model->DeleteTask($id);
-        $this->GoHome();
+
+        $model->DeleteTask($id);
+        $this->displayHome('notConnected');
     }
 
-    function addTask()
+    private function addTask()
     {
-        global $dir, $views;
-        $model = new Model();
+        $model = new VisitorModel();
+
         $idList = $_POST['idList'];
         $content = $_POST['content'];
-        $pubLists = $model->AddTask($content, $idList);
-        $this->GoHome();
+
+        $model->AddTask($content, $idList);
+        $this->displayHome('notConnected');
     }
 
-    function rand_color()
+    private function connection()
+    {
+        $model = new VisitorModel();
+
+        $model->connection();
+        $this->displayHome('connection');
+    }
+
+    function rand_color(): string
     {
         return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
     }
-
-
 }//fin class
-
-?>

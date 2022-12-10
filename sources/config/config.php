@@ -2,11 +2,16 @@
 
 $dir = __DIR__ . '/../';
 
-$user = '2dolistAccess';
-$pass = 'mdp2dolistDBAccess';
+$user = 'root';
+$pass = '0000';
 $dsn = 'mysql:host=localhost;dbname=2dolist';
 
 $views['error'] = 'views/error.php';
-$views['home'] = 'views/home.php';
+$views['startMainView'] = 'views/startMainView.php';
+$views['endMainView'] = 'views/endMainView.php';
+
+$views['notConnected'] = 'views/notConnected.php';
+$views['connection'] = 'views/connection.php';
+
 
 ?>
