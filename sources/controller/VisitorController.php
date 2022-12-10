@@ -33,6 +33,9 @@ class VisitorController extends CanDisplay
                 case "connection":
                     $this->connection();
                     break;
+                case "validTask":
+                    $this->validTask();
+                    break;
                 default:
                     $tErrors[] = "Erreur d'appel php";
                     require($dir . $views['error']);
@@ -106,6 +109,15 @@ class VisitorController extends CanDisplay
 
         $model->connection();
         $this->displayHome('connection');
+    }
+
+    function validTask()
+    {
+        global $dir, $views;
+        $model = new Model();
+        $id = $_GET['id'];
+        $model->ValidTask($id);
+        $this->GoHome();
     }
 
     function rand_color(): string

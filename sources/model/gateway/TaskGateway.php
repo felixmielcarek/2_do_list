@@ -20,8 +20,8 @@ class TaskGateway
     {
         $query = 'INSERT INTO tasks (content,idList) VALUES (:content, :idList)';
         $this->con->executeQuery($query, array(
-            ':content'=>array($content, PDO::PARAM_STR),
-            ':idList'=>array($idList, PDO::PARAM_STR)));
+            ':content' => array($content, PDO::PARAM_STR),
+            ':idList' => array($idList, PDO::PARAM_STR)));
 
 
     }
@@ -30,8 +30,15 @@ class TaskGateway
     {
         $query = 'DELETE FROM tasks WHERE id =:id';
         $this->con->executeQuery($query, array(
-            ':id'=>array($id, PDO::PARAM_STR)));
+            ':id' => array($id, PDO::PARAM_STR)));
 
 
+    }
+
+    public function ValidTask($id)
+    {
+        $query = 'UPDATE tasks SET isDone = NOT isDone WHERE id =:id';
+        $this->con->executeQuery($query, array(
+            ':id' => array($id, PDO::PARAM_STR)));
     }
 }

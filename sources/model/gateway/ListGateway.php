@@ -20,10 +20,10 @@ class ListGateway
     {
         $query = 'INSERT INTO lists (idAuthor,title,description, dateOfCreation) VALUES (:author, :title, :description, :date)';
         $this->con->executeQuery($query, array(
-            ':author'=>array($author, PDO::PARAM_STR),
-            ':title'=>array($title, PDO::PARAM_STR),
-            ':description'=>array($description, PDO::PARAM_STR),
-            ':date'=>array(date('Y-m-d'), PDO::PARAM_STR)));
+            ':author' => array($author, PDO::PARAM_STR),
+            ':title' => array($title, PDO::PARAM_STR),
+            ':description' => array($description, PDO::PARAM_STR),
+            ':date' => array(date('Y-m-d'), PDO::PARAM_STR)));
 
 
     }
@@ -32,7 +32,7 @@ class ListGateway
     {
         $query = 'DELETE FROM lists WHERE id =:id';
         $this->con->executeQuery($query, array(
-            ':id'=>array($id, PDO::PARAM_STR)));
+            ':id' => array($id, PDO::PARAM_STR)));
 
 
     }

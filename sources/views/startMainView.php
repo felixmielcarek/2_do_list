@@ -22,6 +22,32 @@
 
     <title>2 Do List</title>
     <link rel="icon" type="assets/images/ToDoLst-icon" href="views/assets/images/favicon.ico">
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 1px grey;
+            border-radius: 4px;
+            background: #f1f1f0;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #0d6efd;
+            border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0b49a3;
+        }
+
+    </style>
+
 </head>
 <body>
 
@@ -165,11 +191,19 @@
                                             if ($task->getIdList() == $list->getId()) {
                                                 ?>
                                                 <li class="list-group-item d-flex justify-content-between">
-                                                    <div class="container-fluid p-0">
-                                                        <input class="form-check-input me-1" type="checkbox"
-                                                               id="firstCheckbox">
-                                                        <label class="form-check-label"
-                                                               for="firstCheckbox"><?= $task->getContent() ?></label>
+                                                    <div class="container-fluid p-0" style="word-break: break-all ">
+                                                        <form action="index.php?action=validTask&id=<?= $task->getId() ?>"
+                                                              method="POST">
+                                                            <input class="form-check-input me-1" type="checkbox"
+                                                                   onChange='submit();'
+                                                                   name="id"
+                                                            <?php if ($task->getIsDone() == 1) echo "checked " ?>
+                                                            ">
+
+                                                            <label class="form-check-label strikethrough"
+                                                                   for="firstCheckbox"><?php echo $task->getContent();
+                                                                ?></label>
+                                                        </form>
                                                     </div>
                                                     <a href="index.php?action=deleteTask&id=<?= $task->getId() ?>">
                                                         <div class="btn rounded-pill btn-sm del">
