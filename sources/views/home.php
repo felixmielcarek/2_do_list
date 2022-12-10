@@ -195,16 +195,18 @@
                                                 ?>
                                                 <li class="list-group-item d-flex justify-content-between">
                                                     <div class="container-fluid p-0" style="word-break: break-all ">
-                                                        <input class="form-check-input me-1" type="checkbox"
-                                                               id="firstCheckbox" <?php if ($task->getIsDone() == 1) echo "checked" ?>
-                                                        ">
-                                                        <label class="form-check-label strikethrough"
-                                                               for="firstCheckbox"><?php if ($task->getIsDone() == 1) {
-                                                                echo "<s>" . $task->getContent() . "</s>";
-                                                            } else {
-                                                                echo $task->getContent();
-                                                            }
-                                                            ?></label>
+                                                        <form action="index.php?action=validTask&id=<?= $task->getId() ?>"
+                                                              method="POST">
+                                                            <input class="form-check-input me-1" type="checkbox"
+                                                                   onChange='submit();'
+                                                                   name="id"
+                                                            <?php if ($task->getIsDone() == 1) echo "checked " ?>
+                                                            ">
+
+                                                            <label class="form-check-label strikethrough"
+                                                                   for="firstCheckbox"><?php echo $task->getContent();
+                                                                ?></label>
+                                                        </form>
                                                     </div>
                                                     <a href="index.php?action=deleteTask&id=<?= $task->getId() ?>">
                                                         <div class="btn rounded-pill btn-sm del">

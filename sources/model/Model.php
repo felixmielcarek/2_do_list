@@ -36,7 +36,7 @@ class Model
 
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
-        $listsBD = $gwL->AddList($author, $title, $description);
+        $gwL->AddList($author, $title, $description);
         return;
     }
 
@@ -46,7 +46,7 @@ class Model
 
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
-        $listsBD = $gwL->DeleteList($id);
+        $gwL->DeleteList($id);
         return;
     }
 
@@ -56,7 +56,7 @@ class Model
 
         $con = new Connection($dsn, $user, $pass);
         $gwT = new TaskGateway($con);
-        $listsBD = $gwT->AddTask($content, $idList);
+        $gwT->AddTask($content, $idList);
         return;
     }
 
@@ -66,7 +66,17 @@ class Model
 
         $con = new Connection($dsn, $user, $pass);
         $gwT = new TaskGateway($con);
-        $listsBD = $gwT->DeleteTask($id);
+        $gwT->DeleteTask($id);
+        return;
+    }
+
+    public function ValidTask($id): void
+    {
+        global $dsn, $user, $pass;
+
+        $con = new Connection($dsn, $user, $pass);
+        $gwT = new TaskGateway($con);
+        $gwT->ValidTask($id);
         return;
     }
 }

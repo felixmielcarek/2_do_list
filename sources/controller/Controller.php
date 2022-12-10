@@ -35,6 +35,9 @@ class Controller
                 case "addTask":
                     $this->addTask();
                     break;
+                case "validTask":
+                    $this->validTask();
+                    break;
                 default:
                     $tErrors[] = "Erreur d'appel php";
                     require($dir . $views['error']);
@@ -93,7 +96,7 @@ class Controller
         $model = new Model();
         $author = 1;
         $id = $_GET['id'];
-        $pubLists = $model->DeleteTask($id);
+        $model->DeleteTask($id);
         $this->GoHome();
     }
 
@@ -103,7 +106,16 @@ class Controller
         $model = new Model();
         $idList = $_POST['idList'];
         $content = $_POST['content'];
-        $pubLists = $model->AddTask($content, $idList);
+        $model->AddTask($content, $idList);
+        $this->GoHome();
+    }
+
+    function validTask()
+    {
+        global $dir, $views;
+        $model = new Model();
+        $id = $_GET['id'];
+        $model->ValidTask($id);
         $this->GoHome();
     }
 
