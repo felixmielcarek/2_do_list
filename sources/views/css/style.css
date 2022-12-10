@@ -119,4 +119,6 @@ h2 {
     margin-left: 10%;
 }
 
-
+input[type=checkbox]:checked + label.strikethrough {
+    text-decoration: line-through !important;
+}

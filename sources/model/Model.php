@@ -25,7 +25,7 @@ class Model
         $tasksBD = $gwT->GetAll();
 
         foreach ($tasksBD as $lId) {
-            $tasksModel[] = new Task($lId['id'], $lId['content'], $lId['idList']);
+            $tasksModel[] = new Task($lId['id'], $lId['content'], $lId['idList'], $lId['isDone']);
         }
         return $tasksModel;
     }

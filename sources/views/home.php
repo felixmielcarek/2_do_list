@@ -24,6 +24,32 @@
 
     <title>2DoList</title>
     <link rel="icon" type="assets/images/ToDoLst-icon" href="views/assets/images/favicon.ico">
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 1px grey;
+            border-radius: 4px;
+            background: #f1f1f0;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #0d6efd;
+            border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0b49a3;
+        }
+
+    </style>
+
 </head>
 <body>
 
@@ -39,7 +65,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="http://2dolistv3/sources/?action=addList">
+                <form method="post" action="index.php?action=addList">
                     <div class="mb-3">
                         <label class="form-label">Titre de la liste</label>
                         <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="title"
@@ -102,7 +128,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <form method="post"
-                                              action="http://2dolistv3/sources/?action=addTask">
+                                              action="index.php?action=addTask">
                                             <div class="mb-3">
                                                 <label class="form-label">Contenu de la
                                                     tâche</label>
@@ -168,11 +194,17 @@
                                             if ($task->getIdList() == $list->getId()) {
                                                 ?>
                                                 <li class="list-group-item d-flex justify-content-between">
-                                                    <div class="container-fluid p-0">
+                                                    <div class="container-fluid p-0" style="word-break: break-all ">
                                                         <input class="form-check-input me-1" type="checkbox"
-                                                               id="firstCheckbox">
-                                                        <label class="form-check-label"
-                                                               for="firstCheckbox"><?= $task->getContent() ?></label>
+                                                               id="firstCheckbox" <?php if ($task->getIsDone() == 1) echo "checked" ?>
+                                                        ">
+                                                        <label class="form-check-label strikethrough"
+                                                               for="firstCheckbox"><?php if ($task->getIsDone() == 1) {
+                                                                echo "<s>" . $task->getContent() . "</s>";
+                                                            } else {
+                                                                echo $task->getContent();
+                                                            }
+                                                            ?></label>
                                                     </div>
                                                     <a href="index.php?action=deleteTask&id=<?= $task->getId() ?>">
                                                         <div class="btn rounded-pill btn-sm del">

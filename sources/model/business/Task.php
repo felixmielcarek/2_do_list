@@ -6,19 +6,38 @@ class Task
     private $id;
     private $content;
     private $idList;
+    private $isDone;
+
 
     /**
      * @param $id
      * @param $content
      * @param $idList
      */
-    public function __construct($id, $content, $idList)
+    public function __construct($id, $content, $idList, $isDone)
     {
         $this->id = $id;
         $this->content = $content;
         $this->idList = $idList;
+        $this->isDone = $isDone;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIsDone()
+    {
+        return $this->isDone;
+    }
+
+    /**
+     * @param mixed $isDone
+     */
+    public function setIsDone($isDone): void
+    {
+        $this->isDone = $isDone;
+    }
+    
     /**
      * @return mixed
      */
