@@ -1,3 +1,5 @@
+<?php echo 'test 2002'; ?>
+
 <div class="login-section">
     <div class="login-form rounded">
         <form action="/examples/actions/confirmation.php" method="post">

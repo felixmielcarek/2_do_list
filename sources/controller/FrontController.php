@@ -2,7 +2,7 @@
 
 class FrontController
 {
-    private array $userActions = array('logOut');
+    private array $userActions = array('logout', 'register');
 
     public function __construct()
     {

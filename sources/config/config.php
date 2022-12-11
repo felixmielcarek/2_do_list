@@ -11,7 +11,4 @@ $views['startMainView'] = 'views/startMainView.php';
 $views['endMainView'] = 'views/endMainView.php';
 
 $views['notConnected'] = 'views/notConnected.php';
-$views['connection'] = 'views/signIn.php';
-
-
-?>
+$views['login'] = 'views/login.php';

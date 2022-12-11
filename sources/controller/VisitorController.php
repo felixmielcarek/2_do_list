@@ -2,7 +2,7 @@
 
 class VisitorController extends CanDisplay
 {
-    function __construct()
+    public function __construct()
     {
         global $dir, $views;
 
@@ -18,6 +18,9 @@ class VisitorController extends CanDisplay
                 case NULL:
                     $this->notConnected();
                     break;
+                case "login":
+                    $this->login();
+                    break;
                 case "addList":
                     $this->addList();
                     break;
@@ -29,9 +32,6 @@ class VisitorController extends CanDisplay
                     break;
                 case "addTask":
                     $this->addTask();
-                    break;
-                case "connection":
-                    $this->connection();
                     break;
                 case "validTask":
                     $this->validTask();
@@ -58,6 +58,11 @@ class VisitorController extends CanDisplay
     private function notConnected()
     {
         $this->displayHome('notConnected');
+    }
+
+    private function login()
+    {
+        $this->displayHome('login');
     }
 
     private function addList()
@@ -101,14 +106,6 @@ class VisitorController extends CanDisplay
 
         $model->AddTask($content, $idList);
         $this->displayHome('notConnected');
-    }
-
-    private function connection()
-    {
-        $model = new VisitorModel();
-
-        $model->connection();
-        $this->displayHome('connection');
     }
 
     function validTask()

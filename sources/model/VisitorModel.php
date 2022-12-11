@@ -77,6 +77,5 @@ class VisitorModel
         $con = new Connection($dsn, $user, $pass);
         $gwT = new TaskGateway($con);
         $gwT->ValidTask($id);
-        return;
     }
 }
