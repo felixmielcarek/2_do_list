@@ -2,13 +2,13 @@
 
 class VisitorModel
 {
-    public function GetLists(): array
+    public function getLists(): array
     {
         global $dsn, $user, $pass;
 
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
-        $listsBD = $gwL->GetAll();
+        $listsBD = $gwL->getAll();
         $listsModel = [];
         foreach ($listsBD as $lId) {
             $listsModel[] = new ListTask($lId['id'], $lId['idAuthor'], $lId['title'], $lId['description'], $lId['dateOfCreation'], null);
@@ -16,13 +16,13 @@ class VisitorModel
         return $listsModel;
     }
 
-    public function GetTasks(): array
+    public function getTasks(): array
     {
         global $dsn, $user, $pass;
 
         $con = new Connection($dsn, $user, $pass);
         $gwT = new TaskGateway($con);
-        $tasksBD = $gwT->GetAll();
+        $tasksBD = $gwT->getAll();
         $tasksModel = [];
         foreach ($tasksBD as $lId) {
             $tasksModel[] = new Task($lId['id'], $lId['content'], $lId['idList'], $lId['isDone']);
@@ -30,27 +30,26 @@ class VisitorModel
         return $tasksModel;
     }
 
-    public function Addlist($author, $title, $description): void
+    public function addList($author, $title, $description): void
     {
         global $dsn, $user, $pass;
 
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
-        $gwL->AddList($author, $title, $description);
-        return;
+        $gwL->addList($author, $title, $description);
     }
 
-    public function DeleteList($id): void
+    public function deleteList($id): void
     {
         global $dsn, $user, $pass;
 
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
-        $gwL->DeleteList($id);
+        $gwL->deleteList($id);
         return;
     }
 
-    public function AddTask($content, $idList): void
+    public function addTask($content, $idList): void
     {
         global $dsn, $user, $pass;
 
@@ -60,22 +59,22 @@ class VisitorModel
         return;
     }
 
-    public function DeleteTask($id): void
+    public function deleteTask($id): void
     {
         global $dsn, $user, $pass;
 
         $con = new Connection($dsn, $user, $pass);
         $gwT = new TaskGateway($con);
-        $gwT->DeleteTask($id);
+        $gwT->deleteTask($id);
         return;
     }
 
-    public function ValidTask($id): void
+    public function validTask($id): void
     {
         global $dsn, $user, $pass;
 
         $con = new Connection($dsn, $user, $pass);
         $gwT = new TaskGateway($con);
-        $gwT->ValidTask($id);
+        $gwT->validTask($id);
     }
 }

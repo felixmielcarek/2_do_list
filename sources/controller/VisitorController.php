@@ -1,6 +1,6 @@
 <?php
 
-class VisitorController extends CanDisplay
+class VisitorController
 {
     public function __construct()
     {
@@ -16,24 +16,21 @@ class VisitorController extends CanDisplay
 
             switch ($action) {
                 case NULL:
-                    $this->notConnected();
+                    $this->home();
                     break;
-                case "login":
-                    $this->login();
-                    break;
-                case "addList":
+                case "add-list":
                     $this->addList();
                     break;
-                case "deleteList":
+                case "delete-list":
                     $this->deleteList();
                     break;
-                case "deleteTask":
-                    $this->deleteTask();
-                    break;
-                case "addTask":
+                case "add-task":
                     $this->addTask();
                     break;
-                case "validTask":
+                case "delete-task":
+                    $this->deleteTask();
+                    break;
+                case "valid-task":
                     $this->validTask();
                     break;
                 default:
@@ -55,17 +52,25 @@ class VisitorController extends CanDisplay
         }
     }
 
-    private function notConnected()
+    private function home(): void
     {
-        $this->displayHome('notConnected');
+        $this->display();
     }
 
-    private function login()
+    private function display(): void
     {
-        $this->displayHome('login');
+        global $dir, $views;
+
+        $model = new VisitorModel();
+        $pubLists = $model->getLists();
+        $pubTasks = $model->getTasks();
+
+        require($dir . $views['startMainView']);
+        require($dir . $views['notConnected']);
+        require($dir . $views['endMainView']);
     }
 
-    private function addList()
+    private function addList(): void
     {
         $model = new VisitorModel();
 
@@ -73,48 +78,47 @@ class VisitorController extends CanDisplay
         $title = $_POST['title'];
         $description = $_POST['description'];
 
-        $model->Addlist($author, $title, $description);
-        $this->displayHome('notConnected');
+        $model->addList($author, $title, $description);
+        $this->display();
     }
 
-    private function deleteList()
+    private function deleteList(): void
     {
         $model = new VisitorModel();
 
         $id = $_GET['id'];
 
-        $model->DeleteList($id);
-        $this->displayHome('notConnected');
+        $model->deleteList($id);
+        $this->display();
     }
 
-    private function deleteTask()
-    {
-        $model = new VisitorModel();
-
-        $id = $_GET['id'];
-
-        $model->DeleteTask($id);
-        $this->displayHome('notConnected');
-    }
-
-    private function addTask()
+    private function addTask(): void
     {
         $model = new VisitorModel();
 
         $idList = $_POST['idList'];
         $content = $_POST['content'];
 
-        $model->AddTask($content, $idList);
-        $this->displayHome('notConnected');
+        $model->addTask($content, $idList);
+        $this->display();
     }
 
-    function validTask()
+    private function deleteTask(): void
     {
-        global $dir, $views;
-        $model = new Model();
+        $model = new VisitorModel();
+
         $id = $_GET['id'];
-        $model->ValidTask($id);
-        $this->GoHome();
+
+        $model->deleteTask($id);
+        $this->display();
+    }
+
+    function validTask(): void
+    {
+        $model = new VisitorModel();
+        $id = $_GET['id'];
+        $model->validTask($id);
+        $this->display();
     }
 
     function rand_color(): string

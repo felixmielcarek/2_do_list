@@ -9,14 +9,21 @@ class ListGateway
         $this->con = $con;
     }
 
-    public function GetAll(): array
+    public function getAll(): array
     {
         $query = 'SELECT * FROM lists';
         $this->con->executeQuery($query);
         return $this->con->getResults();
     }
 
-    public function AddList($author, $title, $description)
+    public function getFromUser($name): array
+    {
+        $query = 'SELECT * FROM lists WHERE user=:name';
+        $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR)));
+        return $this->con->getResults();
+    }
+
+    public function addList($author, $title, $description): void
     {
         $query = 'INSERT INTO lists (idAuthor,title,description, dateOfCreation) VALUES (:author, :title, :description, :date)';
         $this->con->executeQuery($query, array(
@@ -24,16 +31,12 @@ class ListGateway
             ':title' => array($title, PDO::PARAM_STR),
             ':description' => array($description, PDO::PARAM_STR),
             ':date' => array(date('Y-m-d'), PDO::PARAM_STR)));
-
-
     }
 
-    public function DeleteList($id)
+    public function deleteList($id): void
     {
         $query = 'DELETE FROM lists WHERE id =:id';
         $this->con->executeQuery($query, array(
             ':id' => array($id, PDO::PARAM_STR)));
-
-
     }
 }

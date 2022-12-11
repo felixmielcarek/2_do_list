@@ -5,10 +5,12 @@
                 <div class="card shadow-lg">
                     <div class="card-body p-5">
                         <h1 class="fs-4 card-title fw-bold mb-4">Connexion</h1>
-                        <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+                        <form action="index.php?action=login" method="POST" class="needs-validation" novalidate=""
+                              autocomplete="off">
                             <div class="mb-3">
-                                <label class="mb-2 text-muted" for="email">Pseudo</label>
-                                <input id="email" type="email" class="form-control" name="email" value="" required
+                                <label class="mb-2 text-muted" for="name">Pseudo</label>
+                                <input id="name" type="text" class="form-control" name="name"
+                                       required
                                        autofocus>
                             </div>
 
@@ -16,7 +18,7 @@
                                 <div class="mb-2 w-100">
                                     <label class="text-muted" for="password">Mot de passe</label>
                                 </div>
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="text" class="form-control" name="password" required>
                             </div>
 
                             <div class="d-flex align-items-center">

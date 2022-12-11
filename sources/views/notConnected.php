@@ -1,5 +1,5 @@
 <div class="login-section">
-    <a href="index.php?action=login" type=" button " class="btn btn-outline-primary signin rounded-pill">Se
+    <a href="index.php?action=login-form" type=" button " class="btn btn-outline-primary signin rounded-pill">Se
         connecter</a>
     <button type="button" class="btn btn-primary signup rounded-pill">S'inscrire</button>
 </div>

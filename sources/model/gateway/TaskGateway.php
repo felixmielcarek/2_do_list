@@ -9,33 +9,29 @@ class TaskGateway
         $this->con = $con;
     }
 
-    public function GetAll(): array
+    public function getAll(): array
     {
         $query = 'SELECT * FROM tasks';
         $this->con->executeQuery($query);
         return $this->con->getResults();
     }
 
-    public function addTask($content, $idList)
+    public function addTask($content, $idList): void
     {
         $query = 'INSERT INTO tasks (content,idList) VALUES (:content, :idList)';
         $this->con->executeQuery($query, array(
             ':content' => array($content, PDO::PARAM_STR),
             ':idList' => array($idList, PDO::PARAM_STR)));
-
-
     }
 
-    public function DeleteTask($id)
+    public function deleteTask($id): void
     {
         $query = 'DELETE FROM tasks WHERE id =:id';
         $this->con->executeQuery($query, array(
             ':id' => array($id, PDO::PARAM_STR)));
-
-
     }
 
-    public function ValidTask($id)
+    public function validTask($id): void
     {
         $query = 'UPDATE tasks SET isDone = NOT isDone WHERE id =:id';
         $this->con->executeQuery($query, array(

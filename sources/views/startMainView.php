@@ -61,7 +61,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="index.php?action=addList">
+                <form method="post" action="index.php?action=add-list">
                     <div class="mb-3">
                         <label class="form-label">Titre de la liste</label>
                         <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="title"
@@ -123,7 +123,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <form method="post"
-                                              action="index.php?action=addTask">
+                                              action="index.php?action=add-task">
                                             <div class="mb-3">
                                                 <label class="form-label">Contenu de la
                                                     tâche</label>
@@ -170,7 +170,7 @@
                                                 </button>
 
 
-                                                <a href="index.php?action=deleteList&id=<?= $list->getId() ?>">
+                                                <a href="index.php?action=delete-list&id=<?= $list->getId() ?>">
                                                     <div class=" btn-outline-danger rounded-pill btn-sm del">
                                                         <i class="fa fa-times"></i>
                                                     </div>
@@ -190,7 +190,7 @@
                                                 ?>
                                                 <li class="list-group-item d-flex justify-content-between">
                                                     <div class="container-fluid p-0" style="word-break: break-all ">
-                                                        <form action="index.php?action=validTask&id=<?= $task->getId() ?>"
+                                                        <form action="index.php?action=valid-task&id=<?= $task->getId() ?>"
                                                               method="POST">
                                                             <input class="form-check-input me-1" type="checkbox"
                                                                    onChange='submit();'
@@ -203,7 +203,7 @@
                                                                 ?></label>
                                                         </form>
                                                     </div>
-                                                    <a href="index.php?action=deleteTask&id=<?= $task->getId() ?>">
+                                                    <a href="index.php?action=delete-task&id=<?= $task->getId() ?>">
                                                         <div class="btn rounded-pill btn-sm del">
                                                             <i class="fa fa-minus" style="color: grey"></i>
                                                         </div>
@@ -235,6 +235,7 @@
                 ?>
 
             </div>
+
             <button type="button"
                     class="btn btn-outline-primary add_list rounded-pill shadow-sm p-3 mb-5 bg-body rounded"
                     data-bs-toggle="modal"
