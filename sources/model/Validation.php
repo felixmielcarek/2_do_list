@@ -5,7 +5,7 @@ class Validation
     static function Clean($string): string
     {
         $cleaned = filter_var($string, FILTER_SANITIZE_STRING);;
-        return Cleaned;
+        return $cleaned;
     }
 
     static function Verify($string): bool

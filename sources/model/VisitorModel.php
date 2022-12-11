@@ -9,7 +9,7 @@ class VisitorModel
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
         $listsBD = $gwL->GetAll();
-
+        $listsModel = [];
         foreach ($listsBD as $lId) {
             $listsModel[] = new ListTask($lId['id'], $lId['idAuthor'], $lId['title'], $lId['description'], $lId['dateOfCreation'], null);
         }
@@ -23,7 +23,7 @@ class VisitorModel
         $con = new Connection($dsn, $user, $pass);
         $gwT = new TaskGateway($con);
         $tasksBD = $gwT->GetAll();
-
+        $tasksModel = [];
         foreach ($tasksBD as $lId) {
             $tasksModel[] = new Task($lId['id'], $lId['content'], $lId['idList'], $lId['isDone']);
         }

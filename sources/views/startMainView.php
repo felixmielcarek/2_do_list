@@ -48,14 +48,12 @@
 
     </style>
 
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
 <!-- Modal -->
-<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -249,6 +247,3 @@
                 </svg>
             </button>
         </div>
-
-    </div>
-</div>
