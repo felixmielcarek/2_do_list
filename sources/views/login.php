@@ -1,19 +1,38 @@
-<?php echo 'test 2002'; ?>
+<section class="login-section">
+    <div class="container">
+        <div class="row justify-content-sm-center h-100">
+            <div class="col-xxl-6 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+                <div class="card shadow-lg">
+                    <div class="card-body p-5">
+                        <h1 class="fs-4 card-title fw-bold mb-4">Connexion</h1>
+                        <form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+                            <div class="mb-3">
+                                <label class="mb-2 text-muted" for="email">Pseudo</label>
+                                <input id="email" type="email" class="form-control" name="email" value="" required
+                                       autofocus>
+                            </div>
 
-<div class="login-section">
-    <div class="login-form rounded">
-        <form action="/examples/actions/confirmation.php" method="post">
-            <h2 class="text-center">Connexion</h2>
-            <div class="form-group">
-                <input type="text" class="form-control blue" placeholder="Pseudo" required="required">
+                            <div class="mb-3">
+                                <div class="mb-2 w-100">
+                                    <label class="text-muted" for="password">Mot de passe</label>
+                                </div>
+                                <input id="password" type="password" class="form-control" name="password" required>
+                            </div>
+
+                            <div class="d-flex align-items-center">
+                                <button type="submit" class="btn btn-primary ms-auto">
+                                    Se connecter
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer py-3 border-0">
+                        <div class="text-center">
+                            Vous n'avez pas de compte ? <a href="register.html" class="text-dark">Inscrivez-vous</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="password" class="form-control blue" placeholder="Mot de passe" required="required">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block valider">Se connecter</button>
-            </div>
-            <a class="cancel" href="index.php"><p>Annuler</p></a>
-        </form>
+        </div>
     </div>
-</div>
+</section>
