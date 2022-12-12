@@ -29,7 +29,7 @@ class UserModel
 
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
-        $listsBD = $gwL->getPrivate($name);
+        $listsBD = $gwL->getLists($name);
         $listsModel = [];
         foreach ($listsBD as $lId) {
             $listsModel[] = new ListTask($lId['id'], $lId['idAuthor'], $lId['title'], $lId['description'], $lId['dateOfCreation'], null);

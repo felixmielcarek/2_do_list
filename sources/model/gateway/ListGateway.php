@@ -9,14 +9,7 @@ class ListGateway
         $this->con = $con;
     }
 
-    public function getPublic(): array
-    {
-        $query = 'SELECT * FROM lists WHERE idAuthor=1';
-        $this->con->executeQuery($query);
-        return $this->con->getResults();
-    }
-
-    public function getPrivate($userId): array
+    public function getLists($userId): array
     {
         $query = 'SELECT * FROM lists WHERE idAuthor=:userId';
         $this->con->executeQuery($query, array(':userId' => array($userId, PDO::PARAM_STR)));
