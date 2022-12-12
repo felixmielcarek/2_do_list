@@ -35,6 +35,9 @@ class VisitorController
                 case "valid-task":
                     $this->validTask();
                     break;
+                case "search-list":
+                    $this->displaySearch();
+                    break;
                 default:
                     $tErrors[] = "Visitor Controller : error action";
                     require($dir . $views['error']);
@@ -63,6 +66,25 @@ class VisitorController
 
         $model = new VisitorModel();
         $pubLists = $model->getLists();
+        $pubTasks = $model->getTasks();
+
+        require($dir . $views['startMainView']);
+        require($dir . $views['notConnected']);
+        require($dir . $views['endMainView']);
+    }
+
+    private function displaySearch(): void
+    {
+        global $dir, $views;
+        $str = Validation::clean($_POST['text']);
+        $author = 1;
+
+        $model = new VisitorModel();
+        if ($str == "") {
+            $pubLists = $model->getLists();
+        } else {
+            $pubLists = $model->searchList($author, $str);
+        }
         $pubTasks = $model->getTasks();
 
         require($dir . $views['startMainView']);
@@ -120,5 +142,14 @@ class VisitorController
         $model->validTask($id);
         $this->display();
     }
-    
+
+    /*function searchList(): void
+    {
+        $model = new VisitorModel();
+        $str = Validation::clean($_POST['text']);
+        $author = 1;
+        $model->searchList($author, $str);
+        $this->display();
+    }*/
+
 }//fin class

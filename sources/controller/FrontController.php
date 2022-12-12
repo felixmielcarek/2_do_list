@@ -2,7 +2,7 @@
 
 class FrontController
 {
-    private array $visitorActions = array('add-list', 'delete-list', 'add-task', 'delete-task', 'valid-task');
+    private array $visitorActions = array('add-list', 'delete-list', 'add-task', 'delete-task', 'valid-task', 'search-list');
     private array $userActions = array('logout', 'add-pv-list', 'delete-pv-list');
     private array $connectActions = array('login-form', 'login');
 

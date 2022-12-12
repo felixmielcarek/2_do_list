@@ -77,4 +77,18 @@ class VisitorModel
         $gwT = new TaskGateway($con);
         $gwT->validTask($id);
     }
+
+    function searchList($author, $str): array
+    {
+        global $dsn, $user, $pass;
+
+        $con = new Connection($dsn, $user, $pass);
+        $gwL = new ListGateway($con);
+        $listsBD = $gwL->getListsBySearch('1', $str);
+        $listsModel = [];
+        foreach ($listsBD as $lId) {
+            $listsModel[] = new ListTask($lId['id'], $lId['idAuthor'], $lId['title'], $lId['description'], $lId['dateOfCreation'], null);
+        }
+        return $listsModel;
+    }
 }

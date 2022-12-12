@@ -32,4 +32,12 @@ class ListGateway
         $this->con->executeQuery($query, array(
             ':id' => array($id, PDO::PARAM_STR)));
     }
+
+    public function getListsBySearch($userId, $str): array
+    {
+        $query = "SELECT * FROM lists WHERE idAuthor=:userId AND title LIKE '$str%'";
+        $this->con->executeQuery($query, array(
+            ':userId' => array($userId, PDO::PARAM_STR)));
+        return $this->con->getResults();
+    }
 }
