@@ -9,16 +9,15 @@
                               autocomplete="off">
                             <div class="mb-3">
                                 <label class="mb-2 text-muted" for="name">Pseudo</label>
-                                <input id="name" type="text" class="form-control" name="name"
+                                <input id="name" type="text" class="form-control" name="log-name"
                                        required
                                        autofocus>
                             </div>
-
                             <div class="mb-3">
                                 <div class="mb-2 w-100">
                                     <label class="text-muted" for="passwd">Mot de passe</label>
                                 </div>
-                                <input id="passwd" type="text" class="form-control" name="passwd" required>
+                                <input id="passwd" type="text" class="form-control" name="log-passwd" required>
                             </div>
 
                             <div class="d-flex align-items-center">
@@ -30,7 +29,7 @@
                     </div>
                     <div class="card-footer py-3 border-0">
                         <div class="text-center">
-                            Vous n'avez pas de compte ? <a href="register.html" class="text-dark">Inscrivez-vous</a>
+                            Vous n'avez pas de compte ? <a href="" class="text-dark">Inscrivez-vous</a>
                         </div>
                     </div>
                 </div>

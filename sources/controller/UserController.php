@@ -11,7 +11,6 @@ class UserController
         try {
             if (isset($_REQUEST['action'])) {
                 $action = Validation::clean($_REQUEST['action']);
-                //TODO : filtrer action
             } else {
                 $action = NULL;
             }
@@ -32,9 +31,6 @@ class UserController
                 case 'add-pv-list':
                     $this->addPvList();
                     break;
-                case 'delete-pv-list':
-                    $this->deletePvList();
-                    break;
                 default:
                     $tErrors[] = "User Controller : error action";
                     require($dir . $views['error']);
@@ -54,43 +50,65 @@ class UserController
 
     private function home(): void
     {
-        $this->display('privateLists');
+        if ($this->isConnected()) {
+            $this->display();
+        } else {
+            $this->displayError();
+        }
     }
 
-    private function display($rightPage): void
+    private function isConnected(): bool
     {
-        global $dir, $views;
-
-        $user = $this->getUserInstance();
-        if ($user == null) {
-            require($dir . $views['error']);
-        } else {
-            $um = new UserModel();
-            $vm = new VisitorModel();
-
-            $name = $user->getName();
-
-            $pubLists = $vm->getLists();
-            $pubTasks = $vm->getTasks();
-            $pvLists = $um->getLists($name);
-            $pvTasks = $um->getTasks($name);
-
-            require($dir . $views['startMainView']);
-            require($dir . $views[$rightPage]);
-            require($dir . $views['endMainView']);
-        }
+        return (self::getUserInstance() != null);
     }
 
     public static function getUserInstance(): ?User
     {
-        if (isset($_SESSION['name'])) {
-            // TODO : validate strings
-            $name = Validation::clean($_SESSION['name']);
-            return new User($name);
+        if (isset($_SESSION['user-id']) && $_SESSION['user-id'] != null && isset($_SESSION['user-name']) && $_SESSION['user-name'] != null) {
+            $id = Validation::clean($_SESSION['user-id']);
+            $name = Validation::clean($_SESSION['user-name']);
+            return new User($id, $name);
         } else return null;
     }
 
+    private function display(): void
+    {
+        global $dir, $views;
+
+        $user = $this->getUserInstance();
+
+        $um = new UserModel();
+        $vm = new VisitorModel();
+
+        $id = $user->getId();
+
+        $pubLists = $vm->getLists();
+        $pubTasks = $vm->getTasks();
+        $pvLists = $um->getLists($id);
+        $pvTasks = $um->getTasks($id);
+
+        require($dir . $views['startMainView']);
+        require($dir . $views['privateLists']);
+        require($dir . $views['endMainView']);
+
+    }
+
+    private function displayError(): void
+    {
+        global $dir, $views;
+        require($dir . $views['error']);
+    }
+
     private function loginForm(): void
+    {
+        if (!$this->isConnected()) {
+            $this->displayPublic('loginForm');
+        } else {
+            $this->displayError();
+        }
+    }
+
+    private function displayPublic($rightPage): void
     {
         global $dir, $views;
 
@@ -100,78 +118,61 @@ class UserController
         $pubTasks = $vm->getTasks();
 
         require($dir . $views['startMainView']);
-        require($dir . $views['loginForm']);
+        require($dir . $views[$rightPage]);
         require($dir . $views['endMainView']);
     }
 
     private function login(): void
     {
-        $model = new UserModel();
+        if (!$this->isConnected()) {
+            $model = new UserModel();
 
-        $name = Validation::clean($_POST['name']);
-        $passwd = Validation::clean($_POST['passwd']);
+            $name = Validation::clean($_POST['log-name']);
+            $passwd = Validation::clean($_POST['log-passwd']);
 
-        $user = $model->login($name, $passwd);
+            $user = $model->login($name, $passwd);
 
-        if ($user != null) {
-            $_SESSION['name'] = $user->getName();
-            $this->display('privateLists');
+            if ($user != null) {
+                $_SESSION['user-id'] = $user->getId();
+                $_SESSION['user-name'] = $user->getName();
+                $this->display();
+            } else {
+                // TODO : indicate that password or name is incorrect
+                $this->loginForm();
+            }
         } else {
-            // TODO : indicate that password or name is incorrect
-            $this->loginForm();
+            $this->displayError();
         }
     }
 
     private function logout(): void
     {
-        global $dir, $views;
-
-        $user = $this->getUserInstance();
-        if ($user == null) {
-            require($dir . $views['error']);
-        } else {
+        if ($this->isConnected()) {
             session_unset();
             session_destroy();
             $_SESSION = array();
 
-            $vm = new VisitorModel();
-
-            $pubLists = $vm->getLists();
-            $pubTasks = $vm->getTasks();
-
-            require($dir . $views['startMainView']);
-            require($dir . $views['notConnected']);
-            require($dir . $views['endMainView']);
+            $this->displayPublic('notConnected');
+        } else {
+            $this->displayError();
         }
     }
 
     private function addPvList(): void
     {
-        global $dir, $views;
+        if ($this->isConnected()) {
+            $user = $this->getUserInstance();
+            $author = $user->getId();
 
-        $user = $this->getUserInstance();
-        if ($user == null) {
-            require($dir . $views['error']);
-        } else {
-            $model = new VisitorModel();
+            $model = new UserModel();
 
-            $author = 1;
-            $title = Validation::clean($_POST['title']);
-            $description = Validation::clean($_POST['description']);
+            $title = Validation::clean($_POST['list-title']);
+            $description = Validation::clean($_POST['list-description']);
 
-            $model->addList($author, $title, $description);
+            $model->addPvList($author, $title, $description);
             $this->display();
+        } else {
+            $this->displayError();
         }
     }
-
-    private function deletePvList(): void
-    {
-        $model = new VisitorModel();
-
-        $id = Validation::clean($_GET['id']);
-
-        $model->deleteList($id);
-        $this->display();
-    }
-    
 }

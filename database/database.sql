@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 12, 2022 at 07:58 AM
+-- Generation Time: Dec 12, 2022 at 10:45 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `lists`
     `dateOfCreation` date         NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 28
+  AUTO_INCREMENT = 39
   DEFAULT CHARSET = latin1;
 
 --
@@ -45,9 +45,9 @@ CREATE TABLE IF NOT EXISTS `lists`
 --
 
 INSERT INTO `lists` (`id`, `idAuthor`, `title`, `description`, `dateOfCreation`)
-VALUES (20, 1, 'Ranger le salon', 'Je veux que vous fassiez le mÃ©nage avant que je rentre', '2022-12-07'),
-       (25, 1, 'azeaze', 'azeaze', '2022-12-10'),
-       (27, 1, 'Nouvelle liste', 'test', '2022-12-11');
+VALUES (31, 1, 'Appartement', 'Choses Ã  faire dans le Mielcappart', '2022-12-12'),
+       (37, 1, 'ma premire list', 'oui', '2022-12-12'),
+       (38, 0, 'Ma liste publique', 'ok', '2022-12-12');
 
 -- --------------------------------------------------------
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `tasks`
     PRIMARY KEY (`id`),
     KEY `idList` (`idList`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 48
+  AUTO_INCREMENT = 60
   DEFAULT CHARSET = latin1;
 
 --
@@ -73,11 +73,8 @@ CREATE TABLE IF NOT EXISTS `tasks`
 --
 
 INSERT INTO `tasks` (`id`, `content`, `isDone`, `idList`)
-VALUES (38, 'Demander Ã  Dorian', 1, 20),
-       (39, 'Demander Ã  Lucas', 1, 20),
-       (41, 'azeazazeaze', 1, 20),
-       (44, 'azeaze', 1, 25),
-       (47, 'oui', 0, 20);
+VALUES (58, 'Vaisselle', 1, 31),
+       (59, 'ma tache public', 0, 38);
 
 -- --------------------------------------------------------
 
@@ -88,19 +85,22 @@ VALUES (38, 'Demander Ã  Dorian', 1, 20),
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users`
 (
+    `id`     int(11)      NOT NULL AUTO_INCREMENT,
     `name`   varchar(25)  NOT NULL,
     `passwd` varchar(100) NOT NULL,
-    PRIMARY KEY (`name`)
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `name` (`name`)
 ) ENGINE = MyISAM
+  AUTO_INCREMENT = 3
   DEFAULT CHARSET = latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`name`, `passwd`)
-VALUES ('felix', 'mdp'),
-       ('lucas', 'mdp');
+INSERT INTO `users` (`id`, `name`, `passwd`)
+VALUES (1, 'felix', 'mdp'),
+       (2, 'lucas', 'mdp');
 
 --
 -- Constraints for dumped tables

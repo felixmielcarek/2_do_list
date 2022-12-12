@@ -20,4 +20,16 @@ class UserGateway
             return $res[0][0];
         }
     }
+
+    public function getId(string $name): ?string
+    {
+        $query = 'SELECT id FROM users WHERE name = :name';
+        $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR)));
+        $res = $this->con->getResults();
+        if (count($res) != 1) {
+            return null;
+        } else {
+            return $res[0][0];
+        }
+    }
 }

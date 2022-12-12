@@ -3,7 +3,7 @@
 class FrontController
 {
     private array $visitorActions = array('add-list', 'delete-list', 'add-task', 'delete-task', 'valid-task');
-    private array $userActions = array('logout', 'add-pv-list', 'delete-pv-list');
+    private array $userActions = array('logout', 'add-pv-list');
     private array $connectActions = array('login-form', 'login');
 
     public function __construct()
@@ -19,7 +19,6 @@ class FrontController
             //initialise action
             if (isset($_REQUEST['action'])) {
                 $action = Validation::clean($_REQUEST['action']);
-                //TODO : filtrer action
             } else {
                 $action = NULL;
             }

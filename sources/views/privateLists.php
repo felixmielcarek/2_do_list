@@ -1,6 +1,35 @@
-<div class="input-group search">
+<div class="input-group search"></div>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModalPrivate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Création de liste</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="index.php?action=add-pv-list">
+                    <div class="mb-3">
+                        <label class="form-label">Titre de la liste</label>
+                        <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                               name="list-title"
+                               required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <input class="form-control" id="exampleInputPassword1" name="list-description" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <div class=" private_list" style=" height: 650px">
     <?php
@@ -20,7 +49,7 @@
                         </div>
                         <div class="modal-body">
                             <form method="post"
-                                  action="index.php?action=add-pv-task">
+                                  action="index.php?action=add-task">
                                 <div class="mb-3">
                                     <label class="form-label">Contenu de la
                                         tâche</label>
@@ -28,7 +57,7 @@
                                            aria-describedby="emailHelp" name="content"
                                            required>
                                     <input type="hidden" class="form-control"
-                                           name="idList"
+                                           name="id-list"
                                            value="<?= $list->getId() ?>"
                                            required>
                                 </div>
@@ -42,7 +71,6 @@
                                     </button>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>
@@ -52,11 +80,11 @@
                     <div class="container-fluid p-0">
                         <div class="row">
                             <div class="col-12 col-sm-6 col-md-8">
-                                <h4 style="background: <?= $this->rand_color() ?>;
-                                        background: radial-gradient(circle farthest-corner at center center, <?= $this->rand_color() ?> 0%, <?= $this->rand_color() ?> 100%);
-                                        -webkit-background-clip: text;
-                                        -webkit-text-fill-color: transparent;
-                                        "> <?= $list->getTitle() ?> </h4>
+                                <h4 style="background: lightblue;
+                                                    background: radial-gradient(circle farthest-corner at center center, #0042a6 0%, #49b2d5 100%);
+                                                    -webkit-background-clip: text;
+                                                    -webkit-text-fill-color: transparent;
+                                                    "> <?= $list->getTitle() ?> </h4>
                             </div>
                             <div class="col-6 col-md-4">
                                 <div class="list-bouton">
@@ -66,12 +94,16 @@
                                             data-bs-target="#addTask<?= $list->getId() ?>">Ajouter tâches
                                     </button>
 
-
-                                    <a href="index.php?action=delete-pv-list&id=<?= $list->getId() ?>">
-                                        <div class=" btn-outline-danger rounded-pill btn-sm del">
-                                            <i class="fa fa-times"></i>
-                                        </div>
-                                    </a>
+                                    <form method="post"
+                                          action="index.php?action=delete-list">
+                                        <input type="hidden" name="id-list" value="<?= $list->getId() ?>">
+                                        <button style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;"
+                                                type="submit">
+                                            <div class="btn-outline-danger rounded-pill btn-sm del">
+                                                <i class="fa fa-times"></i>
+                                            </div>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -87,24 +119,30 @@
                                     ?>
                                     <li class="list-group-item d-flex justify-content-between">
                                         <div class="container-fluid p-0" style="word-break: break-all ">
-                                            <form action="index.php?action=valid-task&id=<?= $task->getId() ?>"
+                                            <form action="index.php?action=valid-task"
                                                   method="POST">
                                                 <input class="form-check-input me-1" type="checkbox"
-                                                       onChange='submit();'
-                                                       name="id"
-                                                <?php if ($task->getIsDone() == 1) echo "checked " ?>
-                                                ">
+                                                       onChange="submit();"
+                                                    <?php if ($task->getIsDone() == 1) echo "checked " ?>>
+                                                <input type="hidden" name="id-task"
+                                                       value="<?= $task->getId() ?>">
 
                                                 <label class="form-check-label strikethrough"
                                                        for="firstCheckbox"><?php echo $task->getContent();
                                                     ?></label>
                                             </form>
                                         </div>
-                                        <a href="index.php?action=delete-pv-task&id=<?= $task->getId() ?>">
-                                            <div class="btn rounded-pill btn-sm del">
-                                                <i class="fa fa-minus" style="color: grey"></i>
-                                            </div>
-                                        </a>
+
+                                        <form method="post"
+                                              action="index.php?action=delete-task">
+                                            <input type="hidden" name="id-list" value="<?= $task->getId() ?>">
+                                            <button style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;"
+                                                    type="submit">
+                                                <div class="btn rounded-pill btn-sm del">
+                                                    <i class="fa fa-minus" style="color: grey"></i>
+                                                </div>
+                                            </button>
+                                        </form>
                                     </li>
                                     <?php
                                 }
@@ -136,7 +174,7 @@
 <button type="button"
         class="btn btn-outline-primary add_list rounded-pill shadow-sm p-3 mb-5 bg-body rounded"
         data-bs-toggle="modal"
-        data-bs-target="#exampleModal">
+        data-bs-target="#exampleModalPrivate">
     Ajouter une nouvelle liste
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
          class="bi bi-plus-square" viewBox="0 0 16 16">

@@ -11,7 +11,6 @@ class VisitorController
         try {
             if (isset($_REQUEST['action'])) {
                 $action = Validation::clean($_REQUEST['action']);
-                //TODO : filtrer action
             } else {
                 $action = NULL;
             }
@@ -74,11 +73,10 @@ class VisitorController
     {
         $model = new VisitorModel();
 
-        $author = 1;
-        $title = Validation::clean($_POST['title']);
-        $description = Validation::clean($_POST['description']);
+        $title = Validation::clean($_POST['list-title']);
+        $description = Validation::clean($_POST['list-description']);
 
-        $model->addList($author, $title, $description);
+        $model->addList($title, $description);
         $this->display();
     }
 
@@ -86,7 +84,7 @@ class VisitorController
     {
         $model = new VisitorModel();
 
-        $id = Validation::clean($_GET['id']);
+        $id = Validation::clean($_POST['id-list']);
 
         $model->deleteList($id);
         $this->display();
@@ -96,7 +94,7 @@ class VisitorController
     {
         $model = new VisitorModel();
 
-        $idList = Validation::clean($_POST['idList']);
+        $idList = Validation::clean($_POST['id-list']);
         $content = Validation::clean($_POST['content']);
 
         $model->addTask($content, $idList);
@@ -107,7 +105,7 @@ class VisitorController
     {
         $model = new VisitorModel();
 
-        $id = Validation::clean($_GET['id']);
+        $id = Validation::clean($_POST['id-list']);
 
         $model->deleteTask($id);
         $this->display();
@@ -116,9 +114,9 @@ class VisitorController
     function validTask(): void
     {
         $model = new VisitorModel();
-        $id = Validation::clean($_GET['id']);
+        $id = Validation::clean($_POST['id-task']);
         $model->validTask($id);
         $this->display();
     }
-    
+
 }//fin class
