@@ -29,6 +29,12 @@ class UserController
                 case "logout":
                     $this->logout();
                     break;
+                case 'add-pv-list':
+                    $this->addPvList();
+                    break;
+                case 'delete-pv-list':
+                    $this->deletePvList();
+                    break;
                 default:
                     $tErrors[] = "User Controller : error action";
                     require($dir . $views['error']);
@@ -137,6 +143,35 @@ class UserController
             require($dir . $views['notConnected']);
             require($dir . $views['endMainView']);
         }
+    }
+
+    private function addPvList(): void
+    {
+        global $dir, $views;
+
+        $user = $this->getUserInstance();
+        if ($user == null) {
+            require($dir . $views['error']);
+        } else {
+            $model = new VisitorModel();
+
+            $author = 1;
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+
+            $model->addList($author, $title, $description);
+            $this->display();
+        }
+    }
+
+    private function deletePvList(): void
+    {
+        $model = new VisitorModel();
+
+        $id = $_GET['id'];
+
+        $model->deleteList($id);
+        $this->display();
     }
 
     function rand_color(): string
