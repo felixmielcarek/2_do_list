@@ -37,7 +37,7 @@ class Task
     {
         $this->isDone = $isDone;
     }
-    
+
     /**
      * @return mixed
      */

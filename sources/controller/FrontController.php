@@ -5,8 +5,7 @@ class FrontController
     private array $visitorActions = array('add-list', 'delete-list', 'add-task', 'delete-task', 'valid-task');
     private array $userActions = array('logout', 'add-pv-list', 'delete-pv-list');
     private array $connectActions = array('login-form', 'login');
-
-
+    
     public function __construct()
     {
         global $dir, $views;

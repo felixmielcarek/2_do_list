@@ -163,13 +163,10 @@
                                         </div>
                                         <div class="col-6 col-md-4">
                                             <div class="list-bouton">
-
                                                 <button type="submit" class="btn btn-outline-primary add rounded-pill"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#addTask<?= $list->getId() ?>">Ajouter tâches
                                                 </button>
-
-
                                                 <a href="index.php?action=delete-list&id=<?= $list->getId() ?>">
                                                     <div class=" btn-outline-danger rounded-pill btn-sm del">
                                                         <i class="fa fa-times"></i>
@@ -195,8 +192,9 @@
                                                             <input class="form-check-input me-1" type="checkbox"
                                                                    onChange='submit();'
                                                                    name="id"
-                                                            <?php if ($task->getIsDone() == 1) echo "checked " ?>
-                                                            ">
+                                                                <?php if ($task->getIsDone() == 1) echo "checked " ?>
+                                                                   value="<?= $task->getId() ?>"
+                                                            >
 
                                                             <label class="form-check-label strikethrough"
                                                                    for="firstCheckbox"><?php echo $task->getContent();
