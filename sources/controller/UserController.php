@@ -10,7 +10,7 @@ class UserController
 
         try {
             if (isset($_REQUEST['action'])) {
-                $action = $_REQUEST['action'];
+                $action = Validation::clean($_REQUEST['action']);
                 //TODO : filtrer action
             } else {
                 $action = NULL;
@@ -85,7 +85,7 @@ class UserController
     {
         if (isset($_SESSION['name'])) {
             // TODO : validate strings
-            $name = $_SESSION['name'];
+            $name = Validation::clean($_SESSION['name']);
             return new User($name);
         } else return null;
     }
@@ -108,8 +108,8 @@ class UserController
     {
         $model = new UserModel();
 
-        $name = $_POST['name'];
-        $passwd = $_POST['passwd'];
+        $name = Validation::clean($_POST['name']);
+        $passwd = Validation::clean($_POST['passwd']);
 
         $user = $model->login($name, $passwd);
 
@@ -156,8 +156,8 @@ class UserController
             $model = new VisitorModel();
 
             $author = 1;
-            $title = $_POST['title'];
-            $description = $_POST['description'];
+            $title = Validation::clean($_POST['title']);
+            $description = Validation::clean($_POST['description']);
 
             $model->addList($author, $title, $description);
             $this->display();
@@ -168,7 +168,7 @@ class UserController
     {
         $model = new VisitorModel();
 
-        $id = $_GET['id'];
+        $id = Validation::clean($_GET['id']);
 
         $model->deleteList($id);
         $this->display();

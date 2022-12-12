@@ -2,7 +2,7 @@
 
 class Validation
 {
-    static function Clean($string): string
+    static function clean($string): string
     {
         $cleaned = filter_var($string, FILTER_SANITIZE_STRING);;
         return $cleaned;

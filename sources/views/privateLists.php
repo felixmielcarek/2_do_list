@@ -1,5 +1,5 @@
 <div class="input-group search">
-    <a href="index.php?action=logout">Se déconnecter</a>
+    
 
     <div class="form-outline">
         <input type="search" id="form1" class="form-control"/>
