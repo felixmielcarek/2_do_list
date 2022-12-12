@@ -16,9 +16,9 @@
 
                             <div class="mb-3">
                                 <div class="mb-2 w-100">
-                                    <label class="text-muted" for="password">Mot de passe</label>
+                                    <label class="text-muted" for="passwd">Mot de passe</label>
                                 </div>
-                                <input id="password" type="text" class="form-control" name="password" required>
+                                <input id="passwd" type="text" class="form-control" name="passwd" required>
                             </div>
 
                             <div class="d-flex align-items-center">

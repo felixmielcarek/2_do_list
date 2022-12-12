@@ -3,6 +3,7 @@
 
 <?php
 print 'error';
+var_dump($tErrors);
 ?>
 
 </body>

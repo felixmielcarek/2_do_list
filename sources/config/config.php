@@ -12,3 +12,4 @@ $views['endMainView'] = 'views/endMainView.php';
 
 $views['notConnected'] = 'views/notConnected.php';
 $views['loginForm'] = 'views/loginForm.php';
+$views['privateLists'] = 'views/privateLists.php';

@@ -6,6 +6,8 @@ class VisitorController
     {
         global $dir, $views;
 
+        $tErrors = array();
+
         try {
             if (isset($_REQUEST['action'])) {
                 $action = $_REQUEST['action'];
@@ -34,7 +36,7 @@ class VisitorController
                     $this->validTask();
                     break;
                 default:
-                    $tErrors[] = "Erreur d'appel php";
+                    $tErrors[] = "Visitor Controller : error action";
                     require($dir . $views['error']);
                     break;
             }
@@ -42,12 +44,10 @@ class VisitorController
             //si error BD, pas le cas ici
             echo $e;
             echo phpinfo();
-            $tErrors[] = "Erreur inattendue!!! ";
+            $tErrors[] = "Visitor Controller : error database";
             require($dir . $views['error']);
         } catch (Exception $e2) {
-            $tErrors[] = "Erreur inattendue!!! ";
-            echo 'test2';
-
+            $tErrors[] = "Visitor Controller : unknown error";
             require($dir . $views['error']);
         }
     }

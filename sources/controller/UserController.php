@@ -6,6 +6,8 @@ class UserController
     {
         global $dir, $views;
 
+        $tErrors = array();
+
         try {
             if (isset($_REQUEST['action'])) {
                 $action = $_REQUEST['action'];
@@ -28,7 +30,7 @@ class UserController
                     $this->logout();
                     break;
                 default:
-                    $tErrors[] = "Erreur d'appel php";
+                    $tErrors[] = "User Controller : error action";
                     require($dir . $views['error']);
                     break;
             }
@@ -36,12 +38,10 @@ class UserController
             //si error BD, pas le cas ici
             echo $e;
             echo phpinfo();
-            $tErrors[] = "Erreur inattendue!!! ";
+            $tErrors[] = "User Controller : error database";
             require($dir . $views['error']);
         } catch (Exception $e2) {
-            $tErrors[] = "Erreur inattendue!!! ";
-            echo 'test2';
-
+            $tErrors[] = "User Controller : unknown error";
             require($dir . $views['error']);
         }
     }
@@ -67,7 +67,7 @@ class UserController
             $pubLists = $vm->getLists();
             $pubTasks = $vm->getTasks();
             $pvLists = $um->getLists($name);
-            $pvTasks = $um->getTasks();
+            $pvTasks = $um->getTasks($name);
 
             require($dir . $views['startMainView']);
             require($dir . $views[$rightPage]);
@@ -86,7 +86,16 @@ class UserController
 
     private function loginForm(): void
     {
-        $this->display('loginForm');
+        global $dir, $views;
+
+        $vm = new VisitorModel();
+
+        $pubLists = $vm->getLists();
+        $pubTasks = $vm->getTasks();
+
+        require($dir . $views['startMainView']);
+        require($dir . $views['loginForm']);
+        require($dir . $views['endMainView']);
     }
 
     private function login(): void
@@ -98,16 +107,22 @@ class UserController
 
         $user = $model->login($name, $passwd);
 
-        if ($user == null) {
+        if ($user != null) {
+            $_SESSION['name'] = $user->getName();
             $this->display('privateLists');
         } else {
             // TODO : indicate that password or name is incorrect
-            $this->display('notConnected');
+            $this->loginForm();
         }
     }
 
     private function logout(): void
     {
 
+    }
+
+    function rand_color(): string
+    {
+        return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
     }
 }

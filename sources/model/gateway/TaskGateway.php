@@ -9,10 +9,17 @@ class TaskGateway
         $this->con = $con;
     }
 
-    public function getAll(): array
+    public function getPublic(): array
     {
-        $query = 'SELECT * FROM tasks';
+        $query = 'SELECT * FROM tasks,lists WHERE tasks.idList=lists.id AND lists.idAuthor=1';
         $this->con->executeQuery($query);
+        return $this->con->getResults();
+    }
+
+    public function getPrivate($userId): array
+    {
+        $query = 'SELECT * FROM tasks,lists WHERE tasks.idList=lists.id AND lists.idAuthor=:userId';
+        $this->con->executeQuery($query, array(':userId' => array($userId, PDO::PARAM_STR)));
         return $this->con->getResults();
     }
 

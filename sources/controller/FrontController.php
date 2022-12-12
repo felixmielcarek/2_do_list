@@ -2,7 +2,10 @@
 
 class FrontController
 {
-    private array $userActions = array('logout', 'login-form', 'login');
+    private array $visitorActions = array('add-list', 'delete-list', 'add-task', 'delete-task', 'valid-task');
+    private array $userActions = array('logout', 'add-pv-list', 'delete-pv-list');
+    private array $connectActions = array('login-form', 'login');
+
 
     public function __construct()
     {
@@ -29,22 +32,34 @@ class FrontController
                     $ctrl = new UserController();
                 }
             } else {
-                if (in_array($action, $this->userActions)) {
-                    if ($user == null) {
-                        $_REQUEST['action'] = 'login-form';
-                    }
-                    $ctrl = new UserController();
-                } else {
+                if (in_array($action, $this->visitorActions)) {
                     $ctrl = new VisitorController();
+                } elseif (in_array($action, $this->userActions)) {
+                    if ($user == null) {
+                        $tErrors[] = "Front Controller : error action";
+                        require($dir . $views['error']);
+                    } else {
+                        $ctrl = new UserController();
+                    }
+                } elseif (in_array($action, $this->connectActions)) {
+                    if ($user != null) {
+                        $tErrors[] = "Front Controller : error action";
+                        require($dir . $views['error']);
+                    } else {
+                        $ctrl = new UserController();
+                    }
+                } else {
+                    $tErrors[] = "Front Controller : error action";
+                    require($dir . $views['error']);
                 }
             }
         } catch (PDOException $e) {
             //si error BD, pas le cas ici
             echo $e;
-            $tErrors[] = "Erreur inattendue!!! ";
+            $tErrors[] = "Front Controller : error database";
             require($dir . $views['error']);
         } catch (Exception $e2) {
-            $tErrors[] = "Erreur inattendue!!! ";
+            $tErrors[] = "Front Controller : unknown error";
             require($dir . $views['error']);
         }
     }
