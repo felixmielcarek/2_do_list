@@ -118,7 +118,25 @@ class UserController
 
     private function logout(): void
     {
+        global $dir, $views;
 
+        $user = $this->getUserInstance();
+        if ($user == null) {
+            require($dir . $views['error']);
+        } else {
+            session_unset();
+            session_destroy();
+            $_SESSION = array();
+
+            $vm = new VisitorModel();
+
+            $pubLists = $vm->getLists();
+            $pubTasks = $vm->getTasks();
+
+            require($dir . $views['startMainView']);
+            require($dir . $views['notConnected']);
+            require($dir . $views['endMainView']);
+        }
     }
 
     function rand_color(): string
