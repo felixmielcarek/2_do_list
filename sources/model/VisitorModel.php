@@ -8,7 +8,7 @@ class VisitorModel
 
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
-        $listsBD = $gwL->getPublic();
+        $listsBD = $gwL->getLists('1');
         $listsModel = [];
         foreach ($listsBD as $lId) {
             $listsModel[] = new ListTask($lId['id'], $lId['idAuthor'], $lId['title'], $lId['description'], $lId['dateOfCreation'], null);
