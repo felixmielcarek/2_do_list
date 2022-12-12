@@ -111,7 +111,7 @@
                     foreach ($pubLists as $list) {
                         ?>
                         <!-- Modal -->
-                        <div class="modal fade " id="addTask<?= $list->getId() ?>" tabindex="-1"
+                        <div class="modal fade " id="addTask<?= $list->getId() ?>" tabindex="1"
                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
@@ -155,8 +155,8 @@
                                 <div class="container-fluid p-0">
                                     <div class="row">
                                         <div class="col-12 col-sm-6 col-md-8">
-                                            <h4 style="background: <?= $this->rand_color() ?>;
-                                                    background: radial-gradient(circle farthest-corner at center center, <?= $this->rand_color() ?> 0%, <?= $this->rand_color() ?> 100%);
+                                            <h4 style="background: lightblue;
+                                                    background: radial-gradient(circle farthest-corner at center center, #0042a6 0%, #49b2d5 100%);
                                                     -webkit-background-clip: text;
                                                     -webkit-text-fill-color: transparent;
                                                     "> <?= $list->getTitle() ?> </h4>
@@ -182,8 +182,14 @@
                                 <ul class="list-group">
                                     <?php
                                     if (isset($pubTasks) && count($pubTasks) > 0) {
+                                        $total = 0;
+                                        $done = 0;
                                         foreach ($pubTasks as $task) {
                                             if ($task->getIdList() == $list->getId()) {
+                                                if ($task->getIsDone() == 1) {
+                                                    $done = $done + 1;
+                                                }
+                                                $total = $total + 1;
                                                 ?>
                                                 <li class="list-group-item d-flex justify-content-between">
                                                     <div class="container-fluid p-0" style="word-break: break-all ">
@@ -216,9 +222,20 @@
 
                             </div>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                                     aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0"
-                                     aria-valuemax="100" style="width: 100%"></div>
+                                <?php
+                                if ($total != 0) {
+                                    $pourcentage = $done * 100 / $total;
+                                } else {
+                                    $pourcentage = 0;
+                                }
+                                ?>
+                                <div class="progress-bar progress-bar-striped" role="progressbar"
+                                     aria-label="striped example"
+                                     aria-valuenow="75" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     style="width: <?= $pourcentage ?>%; <?php if ($pourcentage == 100) {
+                                         echo "background-color: #14d914";
+                                     } ?>"></div>
                             </div>
                         </div>
 
