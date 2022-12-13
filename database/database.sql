@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 13, 2022 at 06:54 AM
+-- Generation Time: Dec 13, 2022 at 05:38 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `lists`
     `dateOfCreation` date         NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 40
+  AUTO_INCREMENT = 46
   DEFAULT CHARSET = latin1;
 
 --
@@ -46,9 +46,11 @@ CREATE TABLE IF NOT EXISTS `lists`
 
 INSERT INTO `lists` (`id`, `idAuthor`, `title`, `description`, `dateOfCreation`)
 VALUES (31, 1, 'Appartement', 'Choses Ã  faire dans le Mielcappart', '2022-12-12'),
-       (37, 1, 'ma premire list', 'oui', '2022-12-12'),
-       (38, 0, 'Ma liste publique', 'ok', '2022-12-12'),
-       (39, 0, 'Nouvelle liste', 'Oui', '2022-12-13');
+       (40, 1, 'felix', 'ouo', '2022-12-13'),
+       (41, 1, 'felix', 'felix', '2022-12-13'),
+       (42, 0, 'Nouvelle list', 'test', '2022-12-13'),
+       (44, 0, 'testname', 'testdesc', '2022-12-13'),
+       (45, 0, 'testname', 'testdesc', '2022-12-13');
 
 -- --------------------------------------------------------
 
@@ -66,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `tasks`
     PRIMARY KEY (`id`),
     KEY `idList` (`idList`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 63
+  AUTO_INCREMENT = 64
   DEFAULT CHARSET = latin1;
 
 --
@@ -75,8 +77,11 @@ CREATE TABLE IF NOT EXISTS `tasks`
 
 INSERT INTO `tasks` (`id`, `content`, `isDone`, `idList`)
 VALUES (58, 'Vaisselle', 1, 31),
-       (60, 'Coucou', 0, 38),
-       (62, 'Coucou', 0, 39);
+       (59, 'vincent', 1, 42),
+       (60, 'astolfi', 1, 42),
+       (61, 'tutu', 0, 42),
+       (62, 'tutu', 0, 42),
+       (63, 'tutu', 0, 42);
 
 -- --------------------------------------------------------
 

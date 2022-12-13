@@ -14,7 +14,7 @@ class FrontController
         $tErrors = array();
 
         try {
-            $user = UserController::getUserInstance();
+            $user = UserModel::getUserInstance();
 
             //initialise action
             if (isset($_REQUEST['action'])) {
@@ -52,11 +52,11 @@ class FrontController
                 }
             }
         } catch (PDOException $e) {
-            //si error BD, pas le cas ici
             echo $e;
             $tErrors[] = "Front Controller : error database";
             require($dir . $views['error']);
         } catch (Exception $e2) {
+            echo $e2;
             $tErrors[] = "Front Controller : unknown error";
             require($dir . $views['error']);
         }

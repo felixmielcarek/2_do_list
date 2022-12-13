@@ -8,49 +8,38 @@ class VisitorController
 
         $tErrors = array();
 
-        try {
-            if (isset($_REQUEST['action'])) {
-                $action = Validation::clean($_REQUEST['action']);
-            } else {
-                $action = NULL;
-            }
+        if (isset($_REQUEST['action'])) {
+            $action = Validation::clean($_REQUEST['action']);
+        } else {
+            $action = NULL;
+        }
 
-            switch ($action) {
-                case NULL:
-                    $this->home();
-                    break;
-                case "add-list":
-                    $this->addList();
-                    break;
-                case "delete-list":
-                    $this->deleteList();
-                    break;
-                case "add-task":
-                    $this->addTask();
-                    break;
-                case "delete-task":
-                    $this->deleteTask();
-                    break;
-                case "valid-task":
-                    $this->validTask();
-                    break;
-                case "search-list":
-                    $this->displaySearch();
-                    break;
-                default:
-                    $tErrors[] = "Visitor Controller : error action";
-                    require($dir . $views['error']);
-                    break;
-            }
-        } catch (PDOException $e) {
-            //si error BD, pas le cas ici
-            echo $e;
-            echo phpinfo();
-            $tErrors[] = "Visitor Controller : error database";
-            require($dir . $views['error']);
-        } catch (Exception $e2) {
-            $tErrors[] = "Visitor Controller : unknown error";
-            require($dir . $views['error']);
+        switch ($action) {
+            case NULL:
+                $this->home();
+                break;
+            case "add-list":
+                $this->addList();
+                break;
+            case "delete-list":
+                $this->deleteList();
+                break;
+            case "add-task":
+                $this->addTask();
+                break;
+            case "delete-task":
+                $this->deleteTask();
+                break;
+            case "valid-task":
+                $this->validTask();
+                break;
+            case "search-list":
+                $this->displaySearch();
+                break;
+            default:
+                $tErrors[] = "Visitor Controller : error action";
+                require($dir . $views['error']);
+                break;
         }
     }
 
@@ -79,9 +68,6 @@ class VisitorController
         $title = Validation::clean($_POST['list-title']);
         $description = Validation::clean($_POST['list-description']);
 
-        unset($_POST['list-title']);
-        unset($_POST['list-description']);
-
         $model->addList($title, $description);
         $this->display();
     }
@@ -91,8 +77,6 @@ class VisitorController
         $model = new VisitorModel();
 
         $id = Validation::clean($_POST['id-list']);
-
-        unset($_POST['id-list']);
 
         $model->deleteList($id);
         $this->display();
@@ -105,9 +89,6 @@ class VisitorController
         $idList = Validation::clean($_POST['id-list']);
         $content = Validation::clean($_POST['content']);
 
-        unset($_POST['id-list']);
-        unset($_POST['content']);
-
         $model->addTask($content, $idList);
         $this->display();
     }
@@ -118,8 +99,6 @@ class VisitorController
 
         $id = Validation::clean($_POST['id-list']);
 
-        unset($_POST['id-list']);
-
         $model->deleteTask($id);
         $this->display();
     }
@@ -128,8 +107,6 @@ class VisitorController
     {
         $model = new VisitorModel();
         $id = Validation::clean($_POST['id-task']);
-
-        unset($_POST['id-task']);
 
         $model->validTask($id);
         $this->display();
@@ -140,8 +117,6 @@ class VisitorController
         global $dir, $views;
 
         $str = Validation::clean($_POST['list-title']);
-
-        unset($_POST['list-title']);
 
         $model = new VisitorModel();
         if ($str == "") {

@@ -8,43 +8,32 @@ class UserController
 
         $tErrors = array();
 
-        try {
-            if (isset($_REQUEST['action'])) {
-                $action = Validation::clean($_REQUEST['action']);
-            } else {
-                $action = NULL;
-            }
+        if (isset($_REQUEST['action'])) {
+            $action = Validation::clean($_REQUEST['action']);
+        } else {
+            $action = NULL;
+        }
 
-            switch ($action) {
-                case NULL:
-                    $this->home();
-                    break;
-                case 'login-form' :
-                    $this->loginForm();
-                    break;
-                case 'login':
-                    $this->login();
-                    break;
-                case "logout":
-                    $this->logout();
-                    break;
-                case 'add-pv-list':
-                    $this->addPvList();
-                    break;
-                default:
-                    $tErrors[] = "User Controller : error action";
-                    require($dir . $views['error']);
-                    break;
-            }
-        } catch (PDOException $e) {
-            //si error BD, pas le cas ici
-            echo $e;
-            echo phpinfo();
-            $tErrors[] = "User Controller : error database";
-            require($dir . $views['error']);
-        } catch (Exception $e2) {
-            $tErrors[] = "User Controller : unknown error";
-            require($dir . $views['error']);
+        switch ($action) {
+            case NULL:
+                $this->home();
+                break;
+            case 'login-form' :
+                $this->loginForm();
+                break;
+            case 'login':
+                $this->login();
+                break;
+            case "logout":
+                $this->logout();
+                break;
+            case 'add-pv-list':
+                $this->addPvList();
+                break;
+            default:
+                $tErrors[] = "User Controller : error action";
+                require($dir . $views['error']);
+                break;
         }
     }
 
@@ -59,23 +48,14 @@ class UserController
 
     private function isConnected(): bool
     {
-        return (self::getUserInstance() != null);
-    }
-
-    public static function getUserInstance(): ?User
-    {
-        if (isset($_SESSION['user-id']) && $_SESSION['user-id'] != null && isset($_SESSION['user-name']) && $_SESSION['user-name'] != null) {
-            $id = Validation::clean($_SESSION['user-id']);
-            $name = Validation::clean($_SESSION['user-name']);
-            return new User($id, $name);
-        } else return null;
+        return (UserModel::getUserInstance() != null);
     }
 
     private function display(): void
     {
         global $dir, $views;
 
-        $user = $this->getUserInstance();
+        $user = UserModel::getUserInstance();
 
         $um = new UserModel();
         $vm = new VisitorModel();
@@ -130,14 +110,9 @@ class UserController
             $name = Validation::clean($_POST['log-name']);
             $passwd = Validation::clean($_POST['log-passwd']);
 
-            unset($_SESSION['log-name']);
-            unset($_SESSION['log-passwd']);
-
             $user = $model->login($name, $passwd);
 
             if ($user != null) {
-                $_SESSION['user-id'] = $user->getId();
-                $_SESSION['user-name'] = $user->getName();
                 $this->display();
             } else {
                 // TODO : indicate that password or name is incorrect
@@ -151,9 +126,8 @@ class UserController
     private function logout(): void
     {
         if ($this->isConnected()) {
-            session_unset();
-            session_destroy();
-            $_SESSION = array();
+            $mdl = new UserModel();
+            $mdl->logout();
 
             $this->displayPublic('notConnected');
         } else {
@@ -164,16 +138,13 @@ class UserController
     private function addPvList(): void
     {
         if ($this->isConnected()) {
-            $user = $this->getUserInstance();
+            $user = UserModel::getUserInstance();
             $author = $user->getId();
 
             $model = new UserModel();
 
             $title = Validation::clean($_POST['list-title']);
             $description = Validation::clean($_POST['list-description']);
-
-            unset($_POST['list-title']);
-            unset($_POST['list-description']);
 
             $model->addPvList($author, $title, $description);
             $this->display();
