@@ -1,6 +1,6 @@
 <?php
 
-class UserController
+class UserController extends GlobalMethods
 {
     public function __construct()
     {
@@ -17,6 +17,24 @@ class UserController
         switch ($action) {
             case NULL:
                 $this->home();
+                break;
+            case "add-list":
+                $this->addList();
+                break;
+            case "delete-list":
+                $this->deleteList();
+                break;
+            case "add-task":
+                $this->addTask();
+                break;
+            case "delete-task":
+                $this->deleteTask();
+                break;
+            case "valid-task":
+                $this->validTask();
+                break;
+            case "search-list":
+                $this->displaySearch();
                 break;
             case 'login-form' :
                 $this->loginForm();
@@ -51,7 +69,7 @@ class UserController
         return (UserModel::getUserInstance() != null);
     }
 
-    private function display(): void
+    public function display(): void
     {
         global $dir, $views;
 

@@ -2,7 +2,6 @@
 
 class FrontController
 {
-    private array $visitorActions = array('add-list', 'delete-list', 'add-task', 'delete-task', 'valid-task', 'search-list');
     private array $userActions = array('logout', 'add-pv-list');
     private array $connectActions = array('login-form', 'login');
 
@@ -23,32 +22,23 @@ class FrontController
                 $action = NULL;
             }
 
-            if ($action == null) {
+            if (in_array($action, $this->connectActions)) {
                 if ($user == null) {
-                    $ctrl = new VisitorController();
-                } else {
                     $ctrl = new UserController();
-                }
-            } else {
-                if (in_array($action, $this->visitorActions)) {
-                    $ctrl = new VisitorController();
-                } elseif (in_array($action, $this->userActions)) {
-                    if ($user == null) {
-                        $tErrors[] = "Front Controller : error action";
-                        require($dir . $views['error']);
-                    } else {
-                        $ctrl = new UserController();
-                    }
-                } elseif (in_array($action, $this->connectActions)) {
-                    if ($user != null) {
-                        $tErrors[] = "Front Controller : error action";
-                        require($dir . $views['error']);
-                    } else {
-                        $ctrl = new UserController();
-                    }
                 } else {
-                    $tErrors[] = "Front Controller : error action";
+                    $tErrors[] = "Front Controller : unknown error";
                     require($dir . $views['error']);
+                }
+            } elseif (in_array($action, $this->userActions)) {
+                if ($user == null) {
+                    $_REQUEST['action'] = 'login-form';
+                }
+                $ctrl = new UserController();
+            } else {
+                if ($user != null) {
+                    $ctrl = new UserController();
+                } else {
+                    $ctrl = new VisitorController();
                 }
             }
         } catch (PDOException $e) {
