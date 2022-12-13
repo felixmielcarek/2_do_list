@@ -241,17 +241,17 @@
                             </div>
                             <div class="progress">
                                 <?php
-                                if ($total != 0) {
-                                    $pourcentage = $done * 100 / $total;
+                                if (!isset($total) || $total == 0) {
+                                    $percentage = 0;
                                 } else {
-                                    $pourcentage = 0;
+                                    $percentage = $done * 100 / $total;
                                 }
                                 ?>
                                 <div class="progress-bar progress-bar-striped" role="progressbar"
                                      aria-label="striped example"
                                      aria-valuenow="75" aria-valuemin="0"
                                      aria-valuemax="100"
-                                     style="width: <?= $pourcentage ?>%; <?php if ($pourcentage == 100) {
+                                     style="width: <?= $percentage ?>%; <?php if ($percentage == 100) {
                                          echo "background-color: #14d914";
                                      } ?>"></div>
                             </div>
