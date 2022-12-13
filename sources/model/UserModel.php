@@ -11,13 +11,9 @@ class UserModel
         if ($passwdFromDB == null) {
             return null;
         }
-        // TODO : remove and handle hash and password verify
-        if ($passwd == $passwdFromDB) {
+        if (password_verify($passwd, $passwdFromDB)) {
             $id = $gw->getId($name);
             return new User($id, $name);
-        }
-        if (password_verify($passwd, $passwdFromDB)) {
-            //TODO : implement
         }
         return null;
     }

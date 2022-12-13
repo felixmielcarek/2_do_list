@@ -17,7 +17,7 @@
                                 <div class="mb-2 w-100">
                                     <label class="text-muted" for="passwd">Mot de passe</label>
                                 </div>
-                                <input id="passwd" type="text" class="form-control" name="log-passwd" required>
+                                <input id="passwd" type="password" class="form-control" name="log-passwd" required>
                             </div>
 
                             <div class="d-flex align-items-center">
