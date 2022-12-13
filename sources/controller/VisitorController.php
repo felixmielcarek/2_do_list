@@ -72,25 +72,6 @@ class VisitorController
         require($dir . $views['endMainView']);
     }
 
-    private function displaySearch(): void
-    {
-        global $dir, $views;
-        $str = Validation::clean($_POST['text']);
-        $author = 1;
-
-        $model = new VisitorModel();
-        if ($str == "") {
-            $pubLists = $model->getLists();
-        } else {
-            $pubLists = $model->searchList($author, $str);
-        }
-        $pubTasks = $model->getTasks();
-
-        require($dir . $views['startMainView']);
-        require($dir . $views['notConnected']);
-        require($dir . $views['endMainView']);
-    }
-
     private function addList(): void
     {
         $model = new VisitorModel();
@@ -139,6 +120,25 @@ class VisitorController
         $id = Validation::clean($_POST['id-task']);
         $model->validTask($id);
         $this->display();
+    }
+
+    private function displaySearch(): void
+    {
+        global $dir, $views;
+
+        $str = Validation::clean($_POST['text']);
+
+        $model = new VisitorModel();
+        if ($str == "") {
+            $this->display();
+        } else {
+            $pubLists = $model->searchList(0, $str);
+            $pubTasks = $model->getTasks();
+
+            require($dir . $views['startMainView']);
+            require($dir . $views['notConnected']);
+            require($dir . $views['endMainView']);
+        }
     }
 
 }//fin class

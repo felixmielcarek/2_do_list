@@ -83,7 +83,7 @@ class VisitorModel
 
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
-        $listsBD = $gwL->getListsBySearch('1', $str);
+        $listsBD = $gwL->getListsBySearch($author, $str);
         $listsModel = [];
         foreach ($listsBD as $lId) {
             $listsModel[] = new ListTask($lId['id'], $lId['idAuthor'], $lId['title'], $lId['description'], $lId['dateOfCreation'], null);
