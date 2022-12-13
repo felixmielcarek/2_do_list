@@ -1,5 +1,3 @@
-<div class="input-group search"></div>
-
 <!-- Modal -->
 <div class="modal fade" id="exampleModalPrivate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -30,9 +28,22 @@
         </div>
     </div>
 </div>
+<form method="post" action="index.php">
+    <input type="hidden" name="action" value="search-list">
+    <div class="input-group search">
+        <div class="form-outline">
+            <input type="search" id="search" name="list-title" class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+        </button>
+    </div>
+</form>
 
-
-<div class=" private_list" style=" height: 650px">
+<div class=" public_list" style=" height: 650px">
     <?php
     if (isset($pvLists) && count($pvLists) > 0) {
         foreach ($pvLists as $list) {
@@ -117,8 +128,14 @@
                     <ul class="list-group">
                         <?php
                         if (isset($pvTasks) && count($pvTasks) > 0) {
+                            $total = 0;
+                            $done = 0;
                             foreach ($pvTasks as $task) {
                                 if ($task->getIdList() == $list->getId()) {
+                                    if ($task->getIsDone() == 1) {
+                                        $done = $done + 1;
+                                    }
+                                    $total = $total + 1;
                                     ?>
                                     <li class="list-group-item d-flex justify-content-between">
                                         <div class="container-fluid p-0" style="word-break: break-all ">
@@ -158,9 +175,20 @@
 
                 </div>
                 <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                         aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0"
-                         aria-valuemax="100" style="width: 100%"></div>
+                    <?php
+                    if (!isset($total) || $total == 0) {
+                        $percentage = 0;
+                    } else {
+                        $percentage = $done * 100 / $total;
+                    }
+                    ?>
+                    <div class="progress-bar progress-bar-striped" role="progressbar"
+                         aria-label="striped example"
+                         aria-valuenow="75" aria-valuemin="0"
+                         aria-valuemax="100"
+                         style="width: <?= $percentage ?>%; <?php if ($percentage == 100) {
+                             echo "background-color: #14d914";
+                         } ?>"></div>
                 </div>
             </div>
 
@@ -177,7 +205,7 @@
 </div>
 
 <button type="button"
-        class="btn btn-outline-primary add_list rounded-pill shadow-sm p-3 mb-5 bg-body rounded"
+        class="btn btn-outline-primary add_list rounded-pill "
         data-bs-toggle="modal"
         data-bs-target="#exampleModalPrivate">
     Ajouter une nouvelle liste
