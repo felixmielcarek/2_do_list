@@ -158,11 +158,16 @@
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#addTask<?= $list->getId() ?>">Ajouter tâches
                                                 </button>
-                                                <a href="index.php?action=delete-list&id=<?= $list->getId() ?>">
-                                                    <div class=" btn-outline-danger rounded-pill btn-sm del">
-                                                        <i class="fa fa-times"></i>
-                                                    </div>
-                                                </a>
+                                                <form method="post"
+                                                      action="index.php?action=delete-list">
+                                                    <input type="hidden" name="id-list" value="<?= $list->getId() ?>">
+                                                    <button style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;"
+                                                            type="submit">
+                                                        <div class="btn-outline-danger rounded-pill btn-sm del">
+                                                            <i class="fa fa-times" style="color: grey"></i>
+                                                        </div>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -197,11 +202,17 @@
                                                                 ?></label>
                                                         </form>
                                                     </div>
-                                                    <a href="index.php?action=delete-task&id=<?= $task->getId() ?>">
-                                                        <div class="btn rounded-pill btn-sm del">
-                                                            <i class="fa fa-minus" style="color: grey"></i>
-                                                        </div>
-                                                    </a>
+                                                    <form method="post"
+                                                          action="index.php?action=delete-task">
+                                                        <input type="hidden" name="id-list"
+                                                               value="<?= $task->getId() ?>">
+                                                        <button style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;"
+                                                                type="submit">
+                                                            <div class="btn rounded-pill btn-sm del">
+                                                                <i class="fa fa-minus" style="color: grey"></i>
+                                                            </div>
+                                                        </button>
+                                                    </form>
                                                 </li>
                                                 <?php
                                             }

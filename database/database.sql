@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 12, 2022 at 10:45 PM
+-- Generation Time: Dec 13, 2022 at 06:54 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `lists`
     `dateOfCreation` date         NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 39
+  AUTO_INCREMENT = 40
   DEFAULT CHARSET = latin1;
 
 --
@@ -47,7 +47,8 @@ CREATE TABLE IF NOT EXISTS `lists`
 INSERT INTO `lists` (`id`, `idAuthor`, `title`, `description`, `dateOfCreation`)
 VALUES (31, 1, 'Appartement', 'Choses Ã  faire dans le Mielcappart', '2022-12-12'),
        (37, 1, 'ma premire list', 'oui', '2022-12-12'),
-       (38, 0, 'Ma liste publique', 'ok', '2022-12-12');
+       (38, 0, 'Ma liste publique', 'ok', '2022-12-12'),
+       (39, 0, 'Nouvelle liste', 'Oui', '2022-12-13');
 
 -- --------------------------------------------------------
 
@@ -65,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `tasks`
     PRIMARY KEY (`id`),
     KEY `idList` (`idList`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 60
+  AUTO_INCREMENT = 63
   DEFAULT CHARSET = latin1;
 
 --
@@ -74,7 +75,8 @@ CREATE TABLE IF NOT EXISTS `tasks`
 
 INSERT INTO `tasks` (`id`, `content`, `isDone`, `idList`)
 VALUES (58, 'Vaisselle', 1, 31),
-       (59, 'ma tache public', 0, 38);
+       (60, 'Coucou', 0, 38),
+       (62, 'Coucou', 0, 39);
 
 -- --------------------------------------------------------
 
@@ -87,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `users`
 (
     `id`     int(11)      NOT NULL AUTO_INCREMENT,
     `name`   varchar(25)  NOT NULL,
-    `passwd` varchar(100) NOT NULL,
+    `passwd` varchar(255) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE KEY `name` (`name`)
 ) ENGINE = MyISAM
@@ -99,8 +101,8 @@ CREATE TABLE IF NOT EXISTS `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `passwd`)
-VALUES (1, 'felix', 'mdp'),
-       (2, 'lucas', 'mdp');
+VALUES (1, 'felix', '$2y$10$Wu3MQiP./IjyMrkqaP1KEew6JnKGLKn217C620xsl8XW9ONdTVWJO'),
+       (2, 'lucas', '$2y$10$Wu3MQiP./IjyMrkqaP1KEew6JnKGLKn217C620xsl8XW9ONdTVWJO');
 
 --
 -- Constraints for dumped tables
