@@ -79,6 +79,9 @@ class VisitorController
         $title = Validation::clean($_POST['list-title']);
         $description = Validation::clean($_POST['list-description']);
 
+        unset($_POST['list-title']);
+        unset($_POST['list-description']);
+
         $model->addList($title, $description);
         $this->display();
     }
@@ -88,6 +91,8 @@ class VisitorController
         $model = new VisitorModel();
 
         $id = Validation::clean($_POST['id-list']);
+
+        unset($_POST['id-list']);
 
         $model->deleteList($id);
         $this->display();
@@ -100,6 +105,9 @@ class VisitorController
         $idList = Validation::clean($_POST['id-list']);
         $content = Validation::clean($_POST['content']);
 
+        unset($_POST['id-list']);
+        unset($_POST['content']);
+
         $model->addTask($content, $idList);
         $this->display();
     }
@@ -110,14 +118,19 @@ class VisitorController
 
         $id = Validation::clean($_POST['id-list']);
 
+        unset($_POST['id-list']);
+
         $model->deleteTask($id);
         $this->display();
     }
 
-    function validTask(): void
+    private function validTask(): void
     {
         $model = new VisitorModel();
         $id = Validation::clean($_POST['id-task']);
+
+        unset($_POST['id-task']);
+
         $model->validTask($id);
         $this->display();
     }
@@ -127,6 +140,8 @@ class VisitorController
         global $dir, $views;
 
         $str = Validation::clean($_POST['list-title']);
+
+        unset($_POST['list-title']);
 
         $model = new VisitorModel();
         if ($str == "") {

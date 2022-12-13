@@ -130,6 +130,9 @@ class UserController
             $name = Validation::clean($_POST['log-name']);
             $passwd = Validation::clean($_POST['log-passwd']);
 
+            unset($_SESSION['log-name']);
+            unset($_SESSION['log-passwd']);
+
             $user = $model->login($name, $passwd);
 
             if ($user != null) {
@@ -168,6 +171,9 @@ class UserController
 
             $title = Validation::clean($_POST['list-title']);
             $description = Validation::clean($_POST['list-description']);
+
+            unset($_POST['list-title']);
+            unset($_POST['list-description']);
 
             $model->addPvList($author, $title, $description);
             $this->display();
