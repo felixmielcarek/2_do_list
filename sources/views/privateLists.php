@@ -9,8 +9,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="index.php?action=add-pv-list">
+                <form method="post" action="index.php">
                     <div class="mb-3">
+                        <input type="hidden" name="action" value="add-pv-list">
                         <label class="form-label">Titre de la liste</label>
                         <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                                name="list-title"
@@ -49,8 +50,9 @@
                         </div>
                         <div class="modal-body">
                             <form method="post"
-                                  action="index.php?action=add-task">
+                                  action="index.php">
                                 <div class="mb-3">
+                                    <input type="hidden" name="action" value="add-task">
                                     <label class="form-label">Contenu de la
                                         tâche</label>
                                     <input class="form-control" id="exampleInputEmail1"
@@ -95,7 +97,8 @@
                                     </button>
 
                                     <form method="post"
-                                          action="index.php?action=delete-list">
+                                          action="index.php">
+                                        <input type="hidden" name="action" value="delete-list">
                                         <input type="hidden" name="id-list" value="<?= $list->getId() ?>">
                                         <button style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;"
                                                 type="submit">
@@ -119,8 +122,9 @@
                                     ?>
                                     <li class="list-group-item d-flex justify-content-between">
                                         <div class="container-fluid p-0" style="word-break: break-all ">
-                                            <form action="index.php?action=valid-task"
+                                            <form action="index.php"
                                                   method="POST">
+                                                <input type="hidden" name="action" value="valid-task">
                                                 <input class="form-check-input me-1" type="checkbox"
                                                        onChange="submit();"
                                                     <?php if ($task->getIsDone() == 1) echo "checked " ?>>
@@ -134,7 +138,8 @@
                                         </div>
 
                                         <form method="post"
-                                              action="index.php?action=delete-task">
+                                              action="index.php">
+                                            <input type="hidden" name="action" value="delete-task">
                                             <input type="hidden" name="id-list" value="<?= $task->getId() ?>">
                                             <button style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;"
                                                     type="submit">

@@ -5,8 +5,9 @@
                 <div class="card shadow-lg">
                     <div class="card-body p-5">
                         <h1 class="fs-4 card-title fw-bold mb-4">Connexion</h1>
-                        <form action="index.php?action=login" method="POST" class="needs-validation" novalidate=""
+                        <form action="index.php" method="POST" class="needs-validation" novalidate=""
                               autocomplete="off">
+                            <input type="hidden" name="action" value="login">
                             <div class="mb-3">
                                 <label class="mb-2 text-muted" for="name">Pseudo</label>
                                 <input id="name" type="text" class="form-control" name="log-name"

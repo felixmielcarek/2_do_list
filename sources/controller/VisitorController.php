@@ -126,7 +126,7 @@ class VisitorController
     {
         global $dir, $views;
 
-        $str = Validation::clean($_POST['text']);
+        $str = Validation::clean($_POST['list-title']);
 
         $model = new VisitorModel();
         if ($str == "") {
