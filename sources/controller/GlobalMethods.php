@@ -9,7 +9,7 @@ abstract class GlobalMethods
         $title = Validation::clean($_POST['list-title']);
         $description = Validation::clean($_POST['list-description']);
 
-        $model->addList($title, $description);
+        $model->addList(0, $title, $description);
         $this->display();
     }
 
@@ -66,7 +66,7 @@ abstract class GlobalMethods
             $this->display();
         } else {
             $pubLists = $model->searchList(0, $str);
-            $pubTasks = $model->getTasks();
+            $pubTasks = $model->getTasks(0);
 
             require($dir . $views['startMainView']);
             require($dir . $views['notConnected']);

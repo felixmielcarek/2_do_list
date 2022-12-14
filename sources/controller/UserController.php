@@ -78,15 +78,14 @@ class UserController extends GlobalMethods
 
         $user = UserModel::getUserInstance();
 
-        $um = new UserModel();
         $vm = new VisitorModel();
 
         $id = $user->getId();
 
-        $pubLists = $vm->getLists();
-        $pubTasks = $vm->getTasks();
-        $pvLists = $um->getLists($id);
-        $pvTasks = $um->getTasks($id);
+        $pubLists = $vm->getLists(0);
+        $pubTasks = $vm->getTasks(0);
+        $pvLists = $vm->getLists($id);
+        $pvTasks = $vm->getTasks($id);
 
         require($dir . $views['startMainView']);
         require($dir . $views['privateLists']);
@@ -108,18 +107,17 @@ class UserController extends GlobalMethods
         $user = UserModel::getUserInstance();
 
         $vm = new VisitorModel();
-        $um = new UserModel();
 
         $id = $user->getId();
 
-        $pubLists = $vm->getLists();
-        $pubTasks = $vm->getTasks();
+        $pubLists = $vm->getLists(0);
+        $pubTasks = $vm->getTasks(0);
 
         if ($str == "") {
             $this->display();
         } else {
             $pvLists = $vm->searchList($id, $str);
-            $pvTasks = $um->getTasks($id);
+            $pvTasks = $vm->getTasks($id);
 
             require($dir . $views['startMainView']);
             require($dir . $views['privateLists']);
@@ -142,8 +140,8 @@ class UserController extends GlobalMethods
 
         $vm = new VisitorModel();
 
-        $pubLists = $vm->getLists();
-        $pubTasks = $vm->getTasks();
+        $pubLists = $vm->getLists(0);
+        $pubTasks = $vm->getTasks(0);
 
         require($dir . $views['startMainView']);
         require($dir . $views[$rightPage]);
@@ -189,12 +187,12 @@ class UserController extends GlobalMethods
             $user = UserModel::getUserInstance();
             $author = $user->getId();
 
-            $model = new UserModel();
+            $model = new VisitorModel();
 
             $title = Validation::clean($_POST['list-title']);
             $description = Validation::clean($_POST['list-description']);
 
-            $model->addPvList($author, $title, $description);
+            $model->addList($author, $title, $description);
             $this->display();
         } else {
             $this->displayError();

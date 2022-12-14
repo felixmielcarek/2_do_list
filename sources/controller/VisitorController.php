@@ -53,8 +53,8 @@ class VisitorController extends GlobalMethods
         global $dir, $views;
 
         $model = new VisitorModel();
-        $pubLists = $model->getLists();
-        $pubTasks = $model->getTasks();
+        $pubLists = $model->getLists(0);
+        $pubTasks = $model->getTasks(0);
 
         require($dir . $views['startMainView']);
         require($dir . $views['notConnected']);

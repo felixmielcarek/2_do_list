@@ -2,13 +2,13 @@
 
 class VisitorModel
 {
-    public function getLists(): array
+    public function getLists(string $id): array
     {
         global $dsn, $user, $pass;
 
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
-        $listsBD = $gwL->getLists('0');
+        $listsBD = $gwL->getLists($id);
         $listsModel = [];
         foreach ($listsBD as $lId) {
             $listsModel[] = new ListTask($lId['id'], $lId['idAuthor'], $lId['title'], $lId['description'], $lId['dateOfCreation'], null);
@@ -16,13 +16,13 @@ class VisitorModel
         return $listsModel;
     }
 
-    public function getTasks(): array
+    public function getTasks($id): array
     {
         global $dsn, $user, $pass;
 
         $con = new Connection($dsn, $user, $pass);
         $gwT = new TaskGateway($con);
-        $tasksBD = $gwT->getTasks(0);
+        $tasksBD = $gwT->getTasks($id);
         $tasksModel = [];
         foreach ($tasksBD as $lId) {
             $tasksModel[] = new Task($lId['id'], $lId['content'], $lId['idList'], $lId['isDone']);
@@ -30,13 +30,12 @@ class VisitorModel
         return $tasksModel;
     }
 
-    public function addList($title, $description): void
+    public function addList($author, $title, $description): void
     {
         global $dsn, $user, $pass;
-
         $con = new Connection($dsn, $user, $pass);
         $gwL = new ListGateway($con);
-        $gwL->addList(0, $title, $description);
+        $gwL->addList($author, $title, $description);
     }
 
     public function deleteList($id): void
