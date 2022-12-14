@@ -29,7 +29,7 @@
     </div>
 </div>
 <form method="post" action="index.php">
-    <input type="hidden" name="action" value="search-list">
+    <input type="hidden" name="action" value="search-pv-list">
     <div class="input-group search">
         <div class="form-outline">
             <input type="search" id="search" name="list-title" class="form-control"/>

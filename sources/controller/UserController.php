@@ -36,6 +36,9 @@ class UserController extends GlobalMethods
             case "search-list":
                 $this->displaySearch();
                 break;
+            case "search-pv-list":
+                $this->displayPvSearch();
+                break;
             case 'login-form' :
                 $this->loginForm();
                 break;
@@ -95,6 +98,33 @@ class UserController extends GlobalMethods
     {
         global $dir, $views;
         require($dir . $views['error']);
+    }
+
+    private function displayPvSearch(): void
+    {
+        global $dir, $views;
+
+        $str = Validation::clean($_POST['list-title']);
+        $user = UserModel::getUserInstance();
+
+        $vm = new VisitorModel();
+        $um = new UserModel();
+
+        $id = $user->getId();
+
+        $pubLists = $vm->getLists();
+        $pubTasks = $vm->getTasks();
+
+        if ($str == "") {
+            $this->display();
+        } else {
+            $pvLists = $vm->searchList($id, $str);
+            $pvTasks = $um->getTasks($id);
+
+            require($dir . $views['startMainView']);
+            require($dir . $views['privateLists']);
+            require($dir . $views['endMainView']);
+        }
     }
 
     private function loginForm(): void
