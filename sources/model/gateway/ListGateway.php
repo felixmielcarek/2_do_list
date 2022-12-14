@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Gateway pour les listes (publiques et privées)
+ */
 class ListGateway
 {
     private Connection $con;
@@ -9,6 +12,12 @@ class ListGateway
         $this->con = $con;
     }
 
+    /**
+     * @param $userId
+     * @return array
+     *
+     * Renvoie les listes d'un utilisateur
+     */
     public function getLists($userId): array
     {
         $query = 'SELECT * FROM lists WHERE idAuthor=:userId';
@@ -16,6 +25,14 @@ class ListGateway
         return $this->con->getResults();
     }
 
+    /**
+     * @param $author
+     * @param $title
+     * @param $description
+     * @return void
+     *
+     * Ajout d'une liste par un utilisateur
+     */
     public function addList($author, $title, $description): void
     {
         $query = 'INSERT INTO lists (idAuthor,title,description, dateOfCreation) VALUES (:author, :title, :description, :date)';
@@ -26,6 +43,12 @@ class ListGateway
             ':date' => array(date('Y-m-d'), PDO::PARAM_STR)));
     }
 
+    /**
+     * @param $id
+     * @return void
+     *
+     * Suppression d'une liste
+     */
     public function deleteList($id): void
     {
         $query = 'DELETE FROM lists WHERE id =:id';
@@ -33,6 +56,13 @@ class ListGateway
             ':id' => array($id, PDO::PARAM_STR)));
     }
 
+    /**
+     * @param $userId
+     * @param $str
+     * @return array
+     *
+     * Renvoie les listes d'un utilisateur commençant par la chaine de charactères en paramètre
+     */
     public function getListsBySearch($userId, $str): array
     {
         $query = "SELECT * FROM lists WHERE idAuthor=:userId AND title LIKE '$str%'";

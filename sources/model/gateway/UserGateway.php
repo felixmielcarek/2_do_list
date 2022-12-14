@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Gateway pour les utilisateurs
+ */
 class UserGateway
 {
     private Connection $con;
@@ -9,6 +12,12 @@ class UserGateway
         $this->con = $con;
     }
 
+    /**
+     * @param string $name
+     * @return string|null
+     *
+     * Renvoie le mot de passe hashé d'un utilisateur
+     */
     public function getPasswd(string $name): ?string
     {
         $query = 'SELECT passwd FROM users WHERE name = :name';
@@ -21,6 +30,12 @@ class UserGateway
         }
     }
 
+    /**
+     * @param string $name
+     * @return string|null
+     *
+     * Renvoie l'identifiant d'un utilisateur
+     */
     public function getId(string $name): ?string
     {
         $query = 'SELECT id FROM users WHERE name = :name';

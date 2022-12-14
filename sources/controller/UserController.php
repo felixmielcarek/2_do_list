@@ -1,12 +1,19 @@
 <?php
 
+/**
+ * Classe permettant d'appeler les bonnes méthodes pour les User
+ */
 class UserController extends GlobalMethods
 {
     public function __construct()
     {
-        global $dir, $views;
-
         $tErrors = array();
+
+        if (UserModel::getUserInstance() == null) {
+            $tErrors[] = "User Controller : error not connected";
+            $this->displayError();
+            exit();
+        }
 
         if (isset($_REQUEST['action'])) {
             $action = Validation::clean($_REQUEST['action']);
@@ -16,7 +23,7 @@ class UserController extends GlobalMethods
 
         switch ($action) {
             case NULL:
-                $this->home();
+                $this->display();
                 break;
             case "add-list":
                 $this->addList();
@@ -53,25 +60,16 @@ class UserController extends GlobalMethods
                 break;
             default:
                 $tErrors[] = "User Controller : error action";
-                require($dir . $views['error']);
+                $this->displayError();
                 break;
         }
     }
 
-    private function home(): void
-    {
-        if ($this->isConnected()) {
-            $this->display();
-        } else {
-            $this->displayError();
-        }
-    }
-
-    private function isConnected(): bool
-    {
-        return (UserModel::getUserInstance() != null);
-    }
-
+    /**
+     * @return void
+     *
+     * Affiche la page principale
+     */
     public function display(): void
     {
         global $dir, $views;
@@ -93,12 +91,11 @@ class UserController extends GlobalMethods
 
     }
 
-    private function displayError(): void
-    {
-        global $dir, $views;
-        require($dir . $views['error']);
-    }
-
+    /**
+     * @return void
+     *
+     * Affichage des listes privées recherchées
+     */
     private function displayPvSearch(): void
     {
         global $dir, $views;
@@ -125,6 +122,11 @@ class UserController extends GlobalMethods
         }
     }
 
+    /**
+     * @return void
+     *
+     * Affichage du formulaire de connexion
+     */
     private function loginForm(): void
     {
         if (!$this->isConnected()) {
@@ -134,6 +136,22 @@ class UserController extends GlobalMethods
         }
     }
 
+    /**
+     * @return bool
+     *
+     * Indique si un utilisateur est connecté
+     */
+    private function isConnected(): bool
+    {
+        return (UserModel::getUserInstance() != null);
+    }
+
+    /**
+     * @param $rightPage
+     * @return void
+     *
+     * Affichage des pages pour les Visitor qui cherchent à se connecter
+     */
     private function displayPublic($rightPage): void
     {
         global $dir, $views;
@@ -148,6 +166,11 @@ class UserController extends GlobalMethods
         require($dir . $views['endMainView']);
     }
 
+    /**
+     * @return void
+     *
+     * Gestion de la connexion
+     */
     private function login(): void
     {
         if (!$this->isConnected()) {
@@ -169,6 +192,11 @@ class UserController extends GlobalMethods
         }
     }
 
+    /**
+     * @return void
+     *
+     * Gestion de la déconnexion
+     */
     private function logout(): void
     {
         if ($this->isConnected()) {
@@ -181,6 +209,11 @@ class UserController extends GlobalMethods
         }
     }
 
+    /**
+     * @return void
+     *
+     * Ajout d'une liste privée
+     */
     private function addPvList(): void
     {
         if ($this->isConnected()) {

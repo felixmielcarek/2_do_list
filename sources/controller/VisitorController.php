@@ -1,11 +1,12 @@
 <?php
 
+/**
+ *
+ */
 class VisitorController extends GlobalMethods
 {
     public function __construct()
     {
-        global $dir, $views;
-
         $tErrors = array();
 
         if (isset($_REQUEST['action'])) {
@@ -16,7 +17,7 @@ class VisitorController extends GlobalMethods
 
         switch ($action) {
             case NULL:
-                $this->home();
+                $this->display();
                 break;
             case "add-list":
                 $this->addList();
@@ -38,16 +39,16 @@ class VisitorController extends GlobalMethods
                 break;
             default:
                 $tErrors[] = "Visitor Controller : error action";
-                require($dir . $views['error']);
+                $this->displayError();
                 break;
         }
     }
 
-    private function home(): void
-    {
-        $this->display();
-    }
-
+    /**
+     * @return void
+     *
+     * Affiche la page principale
+     */
     public function display(): void
     {
         global $dir, $views;
@@ -60,5 +61,4 @@ class VisitorController extends GlobalMethods
         require($dir . $views['notConnected']);
         require($dir . $views['endMainView']);
     }
-
 }//fin class

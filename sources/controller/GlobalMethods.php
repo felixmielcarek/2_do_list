@@ -1,7 +1,15 @@
 <?php
 
+/**
+ * Classes possédant les méthodes pouvant être appelé à la fois par un Visitor et par un User
+ */
 abstract class GlobalMethods
 {
+    /**
+     * @return void
+     *
+     * Ajout d'une liste publique
+     */
     protected function addList(): void
     {
         $model = new VisitorModel();
@@ -13,8 +21,18 @@ abstract class GlobalMethods
         $this->display();
     }
 
+    /**
+     * @return mixed
+     *
+     * Affichage principal qui doit être réécrit par chaque controller
+     */
     abstract function display();
 
+    /**
+     * @return void
+     *
+     * Suppression d'une liste
+     */
     protected function deleteList(): void
     {
         $model = new VisitorModel();
@@ -25,6 +43,11 @@ abstract class GlobalMethods
         $this->display();
     }
 
+    /**
+     * @return void
+     *
+     * Ajout d'une tâche
+     */
     protected function addTask(): void
     {
         $model = new VisitorModel();
@@ -36,6 +59,11 @@ abstract class GlobalMethods
         $this->display();
     }
 
+    /**
+     * @return void
+     *
+     * Suppression d'une tâche
+     */
     protected function deleteTask(): void
     {
         $model = new VisitorModel();
@@ -46,6 +74,11 @@ abstract class GlobalMethods
         $this->display();
     }
 
+    /**
+     * @return void
+     *
+     * Validation d'une tâche
+     */
     protected function validTask(): void
     {
         $model = new VisitorModel();
@@ -55,6 +88,11 @@ abstract class GlobalMethods
         $this->display();
     }
 
+    /**
+     * @return void
+     *
+     * Affichage des listes publiques recherchées
+     */
     protected function displaySearch(): void
     {
         global $dir, $views;
@@ -72,5 +110,16 @@ abstract class GlobalMethods
             require($dir . $views['notConnected']);
             require($dir . $views['endMainView']);
         }
+    }
+
+    /**
+     * @return void
+     *
+     * Affiche la page d'erreur
+     */
+    protected function displayError(): void
+    {
+        global $dir, $views;
+        require($dir . $views['error']);
     }
 }

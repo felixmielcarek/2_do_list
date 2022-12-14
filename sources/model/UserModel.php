@@ -1,7 +1,15 @@
 <?php
 
+/**
+ * Classe modèle pour l'utilisateur
+ */
 class UserModel
 {
+    /**
+     * @return User|null
+     *
+     * Renvoie une instance d'utilisateur si il est connecté
+     */
     public static function getUserInstance(): ?User
     {
         if (isset($_SESSION['user-id']) && $_SESSION['user-id'] != null && isset($_SESSION['user-name']) && $_SESSION['user-name'] != null) {
@@ -11,6 +19,13 @@ class UserModel
         } else return null;
     }
 
+    /**
+     * @param $name
+     * @param $passwd
+     * @return User|null
+     *
+     * Gestion de la connexion
+     */
     public function login($name, $passwd): ?User
     {
         global $dsn, $user, $pass;
@@ -29,6 +44,11 @@ class UserModel
         return null;
     }
 
+    /**
+     * @return void
+     *
+     * Gestion de la déconnexion
+     */
     public function logout(): void
     {
         session_unset();
