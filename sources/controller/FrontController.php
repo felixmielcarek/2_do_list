@@ -5,6 +5,7 @@
  */
 class FrontController
 {
+    public array $tErrors;
     /**
      * @var array|string[]
      *
@@ -12,20 +13,12 @@ class FrontController
      */
     private array $userActions = array('logout', 'add-pv-list');
 
-    /**
-     * @var array|string[]
-     *
-     * Listes des actions nécessaires à la connexion.
-     * Elles sont gérées par le UserController mais nécessite des vérifications spéciales.
-     */
-    private array $connectActions = array('login-form', 'login');
-
     public function __construct()
     {
         global $dir, $views;
 
         session_start();
-        $tErrors = array();
+        $this->tErrors = array();
 
         try {
             $user = UserModel::getUserInstance();
@@ -37,14 +30,7 @@ class FrontController
                 $action = NULL;
             }
 
-            if (in_array($action, $this->connectActions)) {
-                if ($user == null) {
-                    $ctrl = new UserController();
-                } else {
-                    $tErrors[] = "Front Controller : unknown error";
-                    require($dir . $views['error']);
-                }
-            } elseif (in_array($action, $this->userActions)) {
+            if (in_array($action, $this->userActions)) {
                 if ($user == null) {
                     $_REQUEST['action'] = 'login-form';
                 }
@@ -58,11 +44,11 @@ class FrontController
             }
         } catch (PDOException $e) {
             echo $e;
-            $tErrors[] = "Front Controller : error database";
+            $this->tErrors[] = "Front Controller : error database";
             require($dir . $views['error']);
         } catch (Exception $e2) {
             echo $e2;
-            $tErrors[] = "Front Controller : unknown error";
+            $this->tErrors[] = "Front Controller : unknown error";
             require($dir . $views['error']);
         }
     }

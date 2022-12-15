@@ -5,6 +5,15 @@
  */
 abstract class GlobalMethods
 {
+    public array $tErrors;
+
+    /**
+     * @return void
+     *
+     * Affichage des listes publiques recherchées
+     */
+    abstract function displaySearch(): void;
+
     /**
      * @return void
      *
@@ -22,11 +31,35 @@ abstract class GlobalMethods
     }
 
     /**
-     * @return mixed
+     * @return void
      *
-     * Affichage principal qui doit être réécrit par chaque controller
+     * Affichage principal qui doit être réécrit par le controller User
      */
-    abstract function display();
+    protected function display($rightPage = 'notConnected'): void
+    {
+        global $dir, $views;
+        $vm = new VisitorModel();
+        $pubLists = $vm->getLists(0);
+        $pubTasks = $vm->getTasks(0);
+        require($dir . $views['startMainView']);
+        require($dir . $views[$rightPage]);
+        require($dir . $views['endMainView']);
+    }
+
+    protected function displayPrivate(): void
+    {
+        global $dir, $views;
+        $user = UserModel::getUserInstance();
+        $vm = new VisitorModel();
+        $id = $user->getId();
+        $pubLists = $vm->getLists(0);
+        $pubTasks = $vm->getTasks(0);
+        $pvLists = $vm->getLists($id);
+        $pvTasks = $vm->getTasks($id);
+        require($dir . $views['startMainView']);
+        require($dir . $views['privateLists']);
+        require($dir . $views['endMainView']);
+    }
 
     /**
      * @return void
@@ -86,30 +119,6 @@ abstract class GlobalMethods
 
         $model->validTask($id);
         $this->display();
-    }
-
-    /**
-     * @return void
-     *
-     * Affichage des listes publiques recherchées
-     */
-    protected function displaySearch(): void
-    {
-        global $dir, $views;
-
-        $str = Validation::clean($_POST['list-title']);
-
-        $model = new VisitorModel();
-        if ($str == "") {
-            $this->display();
-        } else {
-            $pubLists = $model->searchList(0, $str);
-            $pubTasks = $model->getTasks(0);
-
-            require($dir . $views['startMainView']);
-            require($dir . $views['notConnected']);
-            require($dir . $views['endMainView']);
-        }
     }
 
     /**

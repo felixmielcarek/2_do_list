@@ -7,10 +7,10 @@ class UserController extends GlobalMethods
 {
     public function __construct()
     {
-        $tErrors = array();
+        $this->tErrors = array();
 
         if (UserModel::getUserInstance() == null) {
-            $tErrors[] = "User Controller : error not connected";
+            $this->tErrors[] = "User Controller : error not connected";
             $this->displayError();
             exit();
         }
@@ -46,12 +46,6 @@ class UserController extends GlobalMethods
             case "search-pv-list":
                 $this->displayPvSearch();
                 break;
-            case 'login-form' :
-                $this->loginForm();
-                break;
-            case 'login':
-                $this->login();
-                break;
             case "logout":
                 $this->logout();
                 break;
@@ -59,7 +53,7 @@ class UserController extends GlobalMethods
                 $this->addPvList();
                 break;
             default:
-                $tErrors[] = "User Controller : error action";
+                $this->tErrors[] = "User Controller : error action";
                 $this->displayError();
                 break;
         }
@@ -70,25 +64,28 @@ class UserController extends GlobalMethods
      *
      * Affiche la page principale
      */
-    public function display(): void
+    public function display($rightPage = 'privateLists'): void
+    {
+        $this->displayPrivate();
+    }
+
+    public function displaySearch(): void
     {
         global $dir, $views;
 
-        $user = UserModel::getUserInstance();
+        $str = Validation::clean($_POST['list-title']);
 
-        $vm = new VisitorModel();
+        $model = new VisitorModel();
+        if ($str == "") {
+            $this->display();
+        } else {
+            $pubLists = $model->searchList(0, $str);
+            $pubTasks = $model->getTasks(0);
 
-        $id = $user->getId();
-
-        $pubLists = $vm->getLists(0);
-        $pubTasks = $vm->getTasks(0);
-        $pvLists = $vm->getLists($id);
-        $pvTasks = $vm->getTasks($id);
-
-        require($dir . $views['startMainView']);
-        require($dir . $views['privateLists']);
-        require($dir . $views['endMainView']);
-
+            require($dir . $views['startMainView']);
+            require($dir . $views['privateLists']);
+            require($dir . $views['endMainView']);
+        }
     }
 
     /**
@@ -125,12 +122,15 @@ class UserController extends GlobalMethods
     /**
      * @return void
      *
-     * Affichage du formulaire de connexion
+     * Gestion de la déconnexion
      */
-    private function loginForm(): void
+    private function logout(): void
     {
-        if (!$this->isConnected()) {
-            $this->displayPublic('loginForm');
+        if ($this->isConnected()) {
+            $mdl = new UserModel();
+            $mdl->logout();
+
+            parent::display();
         } else {
             $this->displayError();
         }
@@ -144,69 +144,6 @@ class UserController extends GlobalMethods
     private function isConnected(): bool
     {
         return (UserModel::getUserInstance() != null);
-    }
-
-    /**
-     * @param $rightPage
-     * @return void
-     *
-     * Affichage des pages pour les Visitor qui cherchent à se connecter
-     */
-    private function displayPublic($rightPage): void
-    {
-        global $dir, $views;
-
-        $vm = new VisitorModel();
-
-        $pubLists = $vm->getLists(0);
-        $pubTasks = $vm->getTasks(0);
-
-        require($dir . $views['startMainView']);
-        require($dir . $views[$rightPage]);
-        require($dir . $views['endMainView']);
-    }
-
-    /**
-     * @return void
-     *
-     * Gestion de la connexion
-     */
-    private function login(): void
-    {
-        if (!$this->isConnected()) {
-            $model = new UserModel();
-
-            $name = Validation::clean($_POST['log-name']);
-            $passwd = Validation::clean($_POST['log-passwd']);
-
-            $user = $model->login($name, $passwd);
-
-            if ($user != null) {
-                $this->display();
-            } else {
-                // TODO : indicate that password or name is incorrect
-                $this->loginForm();
-            }
-        } else {
-            $this->displayError();
-        }
-    }
-
-    /**
-     * @return void
-     *
-     * Gestion de la déconnexion
-     */
-    private function logout(): void
-    {
-        if ($this->isConnected()) {
-            $mdl = new UserModel();
-            $mdl->logout();
-
-            $this->displayPublic('notConnected');
-        } else {
-            $this->displayError();
-        }
     }
 
     /**

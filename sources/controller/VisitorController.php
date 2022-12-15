@@ -1,13 +1,13 @@
 <?php
 
 /**
- *
+ * Classe permettant d'appeler les bonnes méthodes pour les Visitor
  */
 class VisitorController extends GlobalMethods
 {
     public function __construct()
     {
-        $tErrors = array();
+        $this->tErrors = array();
 
         if (isset($_REQUEST['action'])) {
             $action = Validation::clean($_REQUEST['action']);
@@ -37,28 +37,57 @@ class VisitorController extends GlobalMethods
             case "search-list":
                 $this->displaySearch();
                 break;
+            case 'login-form' :
+                $this->display('loginForm');
+                break;
+            case 'login':
+                $this->login();
+                break;
             default:
-                $tErrors[] = "Visitor Controller : error action";
+                $this->tErrors[] = "Visitor Controller : error action";
                 $this->displayError();
                 break;
+        }
+    }
+
+    public function displaySearch(): void
+    {
+        global $dir, $views;
+
+        $str = Validation::clean($_POST['list-title']);
+
+        $model = new VisitorModel();
+        if ($str == "") {
+            $this->display();
+        } else {
+            $pubLists = $model->searchList(0, $str);
+            $pubTasks = $model->getTasks(0);
+
+            require($dir . $views['startMainView']);
+            require($dir . $views['notConnected']);
+            require($dir . $views['endMainView']);
         }
     }
 
     /**
      * @return void
      *
-     * Affiche la page principale
+     * Gestion de la connexion
      */
-    public function display(): void
+    private function login(): void
     {
-        global $dir, $views;
+        $model = new UserModel();
 
-        $model = new VisitorModel();
-        $pubLists = $model->getLists(0);
-        $pubTasks = $model->getTasks(0);
+        $name = Validation::clean($_POST['log-name']);
+        $passwd = Validation::clean($_POST['log-passwd']);
 
-        require($dir . $views['startMainView']);
-        require($dir . $views['notConnected']);
-        require($dir . $views['endMainView']);
+        $user = $model->login($name, $passwd);
+
+        if ($user != null) {
+            $this->displayPrivate();
+        } else {
+            // TODO : indicate that password or name is incorrect
+            $this->display('loginForm');
+        }
     }
 }//fin class
