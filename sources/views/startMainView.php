@@ -85,8 +85,10 @@
     </div>
 </div>
 
+
 <div class="container-fluid h-100 ">
     <div class="row justify-content-center h-100">
+        <!-- Public part of the screen -->
         <div class="col-md-6 p-0 bg-indigo h-md-100 white" id="yellow">
             <div class="title-bar">
                 <a href="index.php" style="color: black">
@@ -204,17 +206,17 @@
                                                 }
                                                 $total = $total + 1;
                                                 ?>
-                                                <li class="list-group-item d-flex justify-content-between">
+                                                <li class="list-group-item d-flex justify-content-between"
+                                                    style="<?php if ($task->getIsDone() == 1) echo "background-color: #f2f2f2" ?> ">
                                                     <div class="container-fluid p-0" style="word-break: break-all ">
                                                         <form action="index.php"
                                                               method="POST">
+                                                            <input type="hidden" name="id-task"
+                                                                   value="<?= $task->getId() ?>">
                                                             <input type="hidden" name="action" value="valid-task">
                                                             <input class="form-check-input me-1" type="checkbox"
                                                                    onChange="submit();"
                                                                 <?php if ($task->getIsDone() == 1) echo "checked " ?>>
-                                                            <input type="hidden" name="id-task"
-                                                                   value="<?= $task->getId() ?>">
-
                                                             <label class="form-check-label strikethrough"
                                                                    for="firstCheckbox"><?php echo $task->getContent();
                                                                 ?></label>
@@ -283,6 +285,7 @@
                 </svg>
             </button>
         </div>
+        <!-- Private part of the screen -->
         <div class="col-md-6 p-0 bg-indigo h-md-100 grey" id="grey">
             <div class="title-bar">
                 <a href="index.php" style="color: black">

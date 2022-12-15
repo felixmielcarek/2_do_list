@@ -5,7 +5,7 @@
  */
 abstract class GlobalMethods
 {
-    public array $tErrors;
+    public array $tErrors = array();
 
     /**
      * @return void
@@ -126,7 +126,7 @@ abstract class GlobalMethods
      *
      * Affiche la page d'erreur
      */
-    protected function displayError(): void
+    protected function displayError($tErrors): void
     {
         global $dir, $views;
         require($dir . $views['error']);

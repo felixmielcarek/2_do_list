@@ -11,7 +11,7 @@ class UserController extends GlobalMethods
 
         if (UserModel::getUserInstance() == null) {
             $this->tErrors[] = "User Controller : error not connected";
-            $this->displayError();
+            $this->displayError($this->tErrors);
             exit();
         }
 
@@ -54,7 +54,7 @@ class UserController extends GlobalMethods
                 break;
             default:
                 $this->tErrors[] = "User Controller : error action";
-                $this->displayError();
+                $this->displayError($this->tErrors);
                 break;
         }
     }
@@ -132,7 +132,8 @@ class UserController extends GlobalMethods
 
             parent::display();
         } else {
-            $this->displayError();
+            $this->tErrors[] = "Erreur : Problème lors de la déconnexion";
+            $this->displayError($this->tErrors);
         }
     }
 
@@ -165,7 +166,8 @@ class UserController extends GlobalMethods
             $model->addList($author, $title, $description);
             $this->display();
         } else {
-            $this->displayError();
+            $this->tErrors[] = "Erreur : Problème lors de l'ajout d'une liste privée";
+            $this->displayError($this->tErrors);
         }
     }
 }

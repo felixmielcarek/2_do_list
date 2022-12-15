@@ -45,7 +45,7 @@ class VisitorController extends GlobalMethods
                 break;
             default:
                 $this->tErrors[] = "Visitor Controller : error action";
-                $this->displayError();
+                $this->displayError($this->tErrors);
                 break;
         }
     }

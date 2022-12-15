@@ -137,16 +137,17 @@
                                     }
                                     $total = $total + 1;
                                     ?>
-                                    <li class="list-group-item d-flex justify-content-between">
+                                    <li class="list-group-item d-flex justify-content-between"
+                                        style="<?php if ($task->getIsDone() == 1) echo "background-color: #f2f2f2" ?> ">
                                         <div class="container-fluid p-0" style="word-break: break-all ">
                                             <form action="index.php"
                                                   method="POST">
                                                 <input type="hidden" name="action" value="valid-task">
+                                                <input type="hidden" name="id-task"
+                                                       value="<?= $task->getId() ?>">
                                                 <input class="form-check-input me-1" type="checkbox"
                                                        onChange="submit();"
                                                     <?php if ($task->getIsDone() == 1) echo "checked " ?>>
-                                                <input type="hidden" name="id-task"
-                                                       value="<?= $task->getId() ?>">
 
                                                 <label class="form-check-label strikethrough"
                                                        for="firstCheckbox"><?php echo $task->getContent();

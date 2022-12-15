@@ -18,6 +18,14 @@
             <div type="button" class="btn btn-outline-dark rounded-pill btn-lg">Me ramener en lieu sûr</div>
         </button>
     </a>
+    <?php
+    if (isset($tErrors)) {
+
+        foreach ($tErrors as $value) {
+            echo $value;
+        }
+    }
+    ?>
 </div>
 
 </body>
