@@ -80,10 +80,10 @@ class UserController extends GlobalMethods
             $user = UserModel::getUserInstance();
             $id = $user->getId();
 
-            $pubLists = $vm->getLists(0);
+            $pubLists = $vm->searchList(0, $str);
             $pubTasks = $vm->getTasks(0);
 
-            $pvLists = $vm->searchList($id, $str);
+            $pvLists = $vm->getLists($id);
             $pvTasks = $vm->getTasks($id);
 
             require($dir . $views['startMainView']);
