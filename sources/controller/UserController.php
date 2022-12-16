@@ -72,15 +72,19 @@ class UserController extends GlobalMethods
     public function displaySearch(): void
     {
         global $dir, $views;
-
         $str = Validation::clean($_POST['list-title']);
-
-        $model = new VisitorModel();
+        $vm = new VisitorModel();
         if ($str == "") {
             $this->display();
         } else {
-            $pubLists = $model->searchList(0, $str);
-            $pubTasks = $model->getTasks(0);
+            $user = UserModel::getUserInstance();
+            $id = $user->getId();
+
+            $pubLists = $vm->getLists(0);
+            $pubTasks = $vm->getTasks(0);
+
+            $pvLists = $vm->searchList($id, $str);
+            $pvTasks = $vm->getTasks($id);
 
             require($dir . $views['startMainView']);
             require($dir . $views['privateLists']);
