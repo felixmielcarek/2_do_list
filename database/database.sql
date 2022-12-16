@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 13, 2022 at 05:38 PM
+-- Generation Time: Dec 16, 2022 at 07:08 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `2dolist`
 --
+CREATE DATABASE IF NOT EXISTS `2dolist` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `2dolist`;
 
 -- --------------------------------------------------------
 
@@ -37,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `lists`
     `dateOfCreation` date         NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 46
+  AUTO_INCREMENT = 56
   DEFAULT CHARSET = latin1;
 
 --
@@ -45,12 +47,11 @@ CREATE TABLE IF NOT EXISTS `lists`
 --
 
 INSERT INTO `lists` (`id`, `idAuthor`, `title`, `description`, `dateOfCreation`)
-VALUES (31, 1, 'Appartement', 'Choses Ã  faire dans le Mielcappart', '2022-12-12'),
-       (40, 1, 'felix', 'ouo', '2022-12-13'),
-       (41, 1, 'felix', 'felix', '2022-12-13'),
-       (42, 0, 'Nouvelle list', 'test', '2022-12-13'),
-       (44, 0, 'testname', 'testdesc', '2022-12-13'),
-       (45, 0, 'testname', 'testdesc', '2022-12-13');
+VALUES (50, 0, 'Cours', 'TÃ¢ches Ã  faire', '2022-12-15'),
+       (51, 0, 'Cuisine', 'Recette Ã  faire', '2022-12-15'),
+       (52, 0, 'Jeux', 'Vampire Survivors', '2022-12-15'),
+       (53, 1, 'PrivÃ©e', 'Ma liste privÃ©e', '2022-12-15'),
+       (55, 1, 'Coucou', 'oui', '2022-12-16');
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `tasks`
     PRIMARY KEY (`id`),
     KEY `idList` (`idList`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 64
+  AUTO_INCREMENT = 75
   DEFAULT CHARSET = latin1;
 
 --
@@ -76,12 +77,10 @@ CREATE TABLE IF NOT EXISTS `tasks`
 --
 
 INSERT INTO `tasks` (`id`, `content`, `isDone`, `idList`)
-VALUES (58, 'Vaisselle', 1, 31),
-       (59, 'vincent', 1, 42),
-       (60, 'astolfi', 1, 42),
-       (61, 'tutu', 0, 42),
-       (62, 'tutu', 0, 42),
-       (63, 'tutu', 0, 42);
+VALUES (71, 'RÃ©diger le rapport de SAE', 0, 50),
+       (72, 'PrÃ©parer la soutenance', 1, 50),
+       (73, 'La quiche', 1, 51),
+       (74, 'Ma tache privÃ©e', 0, 53);
 
 -- --------------------------------------------------------
 
@@ -118,6 +117,26 @@ VALUES (1, 'felix', '$2y$10$Wu3MQiP./IjyMrkqaP1KEew6JnKGLKn217C620xsl8XW9ONdTVWJ
 --
 ALTER TABLE `tasks`
     ADD CONSTRAINT `idList` FOREIGN KEY (`idList`) REFERENCES `lists` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+--
+-- Database: `dafl_db`
+--
+CREATE DATABASE IF NOT EXISTS `dafl_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `dafl_db`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user`
+(
+    `idDafl`      varchar(50) NOT NULL,
+    `idSpotify`   varchar(50) NOT NULL,
+    `hashedPassw` varchar(50) NOT NULL
+) ENGINE = MyISAM
+  DEFAULT CHARSET = latin1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
